@@ -1,0 +1,32 @@
+{
+    "defaultBooking": {
+      "phoneNumber": "0777844489",
+      "location": "Cơ sở Quang Trung",
+      "bookingDate": "22/07/2024",
+      "selectedShift": "CA2",
+      "startTime": "09:30",
+      "endTime": "12:00",
+      "attendees": 10,
+      "purpose": "poster", 
+      "purposeDetail": "Dán poster giới thiệu cuộc thi ABC", 
+      "notes": "Xin phép dán ở sảnh tầng 1."
+    },
+    "locations": [
+      "Trụ sở chính Nguyễn Văn Tráng",
+      "Cơ sở Quang Trung",
+      "Cơ sở Thành Thái"
+    ],
+    "shifts": [
+      { "label": "Ca 1 (7:00 - 9:30)", "value": "CA1" },
+      { "label": "Ca 2 (9:30 - 12:00)", "value": "CA2" },
+      { "label": "Ca 3 (13:00 - 15:30)", "value": "CA3" },
+      { "label": "Ca 4 (15:30 - 18:00)", "value": "CA4" },
+      { "label": "Buổi tối (18:00 - 21:00)", "value": "CA_TOI" }
+    ],
+    "purposeOptions": [
+       { "label": "Tổ chức sự kiện / Đồ án môn học", "value": "event_project" },
+       { "label": "Dán poster", "value": "poster" },
+       { "label": "Đặt bàn tư vấn", "value": "consult" },
+       { "label": "Khác (ghi rõ ở mục đích)", "value": "other" }
+    ]
+  }

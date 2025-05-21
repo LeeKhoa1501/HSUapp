@@ -1,0 +1,3 @@
+# .gitignore file (nằm trong HSUBackend)
+node_modules
+.env

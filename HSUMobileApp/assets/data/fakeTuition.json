@@ -1,0 +1,42 @@
+[
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "semester": "Học kỳ 1", "academicYear": "2024-2025",
+     "description": "Học phí HK1 24-25",
+     "amountDue": 18783000,
+     "amountPaid": 0, 
+     "dueDate": { "$date": "2026-3-15T17:00:00Z" },
+     "paymentDate": null,
+     "status": "Unpaid" 
+  },
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "semester": "Học kỳ tết", "academicYear": "2024-2025",
+     "description": "Học phí tết 25-26",
+     "amountDue": 18783000,
+     "amountPaid": 0, 
+     "dueDate": { "$date": "2026-3-15T17:00:00Z" },
+     "paymentDate": null,
+     "status": "Unpaid" 
+  },
+    {
+      "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+      "semester": "Học kỳ hè", "academicYear": "2024-2025",
+      "description": "Học phí HK Hè 25-26",
+      "amountDue": 10660000,
+      "amountPaid": 10660000, 
+      "dueDate": { "$date": "2025-07-15T17:00:00Z" }, 
+      "paymentDate": { "$date": "2025-07-10T10:00:00Z" }, 
+      "status": "Paid"
+    },
+     {
+      "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+      "semester": "Học kỳ 2", "academicYear": "2024-2025",
+       "description": "Học phí HK2 25-26",
+       "amountDue": 18500000,
+       "amountPaid": 10000000, 
+       "dueDate": { "$date": "2024-03-10T17:00:00Z" },
+       "paymentDate": { "$date": "2025-8-05T09:30:00Z" },
+       "status": "Partially Paid"
+    }
+  ]

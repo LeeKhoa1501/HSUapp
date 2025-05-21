@@ -1,0 +1,86 @@
+[
+    {
+      "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+      "courseId": { "$oid": "68182af0e0c6d908c3b9f30b" }, 
+      "semester": "Học kỳ 1", "academicYear": "2024-2025",
+      "midtermScore": 8.5, "finalExamScore": 7.0, "overallScore": 7.8, "letterGrade": "B", "status": "Passed"
+    },
+    {
+      "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+      "courseId": { "$oid": "68182af0e0c6d908c3b9f30c" }, 
+      "semester": "Học kỳ 1", "academicYear": "2024-2025",
+      "overallScore": 7.0, "letterGrade": "Pass", "status": "Passed", "notes": "Môn điều kiện"
+    },
+    {
+      "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+      "courseId": { "$oid": "68182af0e0c6d908c3b9f30d" }, 
+      "semester": "Học kỳ 1", "academicYear": "2024-2025",
+      "assignmentScore": 9.0, "finalExamScore": 8.0, "overallScore": 8.5, "letterGrade": "A", "status": "Passed"
+    },
+     {
+      "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+      "courseId": { "$oid": "68182af0e0c6d908c3b9f30e" }, 
+      "semester": "Học kỳ 1", "academicYear": "2024-2025",
+       "midtermScore": 6.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "C", "status": "Passed"
+    },
+     {
+      "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+      "courseId": { "$oid": "68182af0e0c6d908c3b9f30f" }, 
+      "semester": "Học kỳ tết", "academicYear": "2024-2025",
+       "status": "In Progress"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f310" }, 
+        "semester": "Học kỳ tết", "academicYear": "2024-2025",
+        "midtermScore": 6.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f311" }, 
+        "semester": "Học kỳ 2", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f312" }, 
+        "semester": "Học kỳ 2", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f313" }, 
+        "semester": "Học kỳ 2", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f315" }, 
+        "semester": "Học kỳ 2", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f316" }, 
+        "semester": "Học kỳ 2", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f317" }, 
+        "semester": "Học kỳ hè", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f318" }, 
+        "semester": "Học kỳ hè", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    },
+    {
+        "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+        "courseId": { "$oid": "68182af0e0c6d908c3b9f319" }, 
+        "semester": "Học kỳ hè", "academicYear": "2024-2025",
+        "midtermScore": 8.0, "practicalScore": 7.5, "finalExamScore": 5.0, "overallScore": 6.2, "letterGrade": "B", "status": "Passed"
+    }
+]

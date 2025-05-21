@@ -1,0 +1,100 @@
+[
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "courseId": { "$oid": "68182af0e0c6d908c3b9f30b" }, 
+    "semester": "Học kỳ 1",
+    "academicYear": "2024-2025",
+    "instructorName": "Nguyễn Trọng Phát",
+    "answers": [
+      { "questionId": "content_clarity", "questionText": "Nội dung môn học được trình bày rõ ràng, dễ hiểu.", "rating": 4 },
+      { "questionId": "content_relevance", "questionText": "Nội dung môn học phù hợp và hữu ích cho ngành học.", "rating": 5 },
+      { "questionId": "instructor_knowledge", "questionText": "Giảng viên thể hiện kiến thức chuyên môn sâu rộng.", "rating": 5 },
+      { "questionId": "instructor_preparedness", "questionText": "Giảng viên chuẩn bị bài giảng chu đáo.", "rating": 4 },
+      { "questionId": "instructor_communication", "questionText": "Giảng viên truyền đạt dễ hiểu, tạo hứng thú.", "rating": 4 },
+      { "questionId": "instructor_feedback", "questionText": "Giảng viên phản hồi bài tập/thắc mắc kịp thời, hữu ích.", "rating": 3, "comment": "Phản hồi bài tập hơi chậm." },
+      { "questionId": "assessment_fairness", "questionText": "Phương pháp kiểm tra, đánh giá công bằng, phù hợp.", "rating": 4 },
+      { "questionId": "general_improvement", "questionText": "Góp ý để cải thiện môn học/giảng viên (nếu có):", "comment": "" }
+    ],
+    "generalComment": "Môn học hay, giảng viên nhiệt tình.",
+    "submittedAt": { "$date": "2025-01-20T10:00:00Z" }
+  },
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "courseId": { "$oid": "68182af0e0c6d908c3b9f30d" }, 
+    "semester": "Học kỳ 1",
+    "academicYear": "2024-2025",
+    "instructorName": "Thầy Đỗ Minh",
+    "answers": [
+      { "questionId": "content_clarity", "questionText": "Nội dung môn học được trình bày rõ ràng, dễ hiểu.", "rating": 5 },
+      { "questionId": "content_relevance", "questionText": "Nội dung môn học phù hợp và hữu ích cho ngành học.", "rating": 5 },
+      { "questionId": "instructor_knowledge", "questionText": "Giảng viên thể hiện kiến thức chuyên môn sâu rộng.", "rating": 5 },
+      { "questionId": "instructor_preparedness", "questionText": "Giảng viên chuẩn bị bài giảng chu đáo.", "rating": 5 },
+      { "questionId": "instructor_communication", "questionText": "Giảng viên truyền đạt dễ hiểu, tạo hứng thú.", "rating": 5 },
+      { "questionId": "instructor_feedback", "questionText": "Giảng viên phản hồi bài tập/thắc mắc kịp thời, hữu ích.", "rating": 5 },
+      { "questionId": "assessment_fairness", "questionText": "Phương pháp kiểm tra, đánh giá công bằng, phù hợp.", "rating": 5 },
+      { "questionId": "general_improvement", "questionText": "Góp ý để cải thiện môn học/giảng viên (nếu có):", "comment": "Rất tốt!" }
+    ],
+    "generalComment": null,
+    "submittedAt": { "$date": "2025-01-21T11:30:00Z" }
+  },
+
+  
+   {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "courseId": { "$oid": "68182af0e0c6d908c3b9f311" }, 
+    "semester": "Học kỳ 2",
+    "academicYear": "2024-2025",
+    "instructorName": "Cô Nguyễn An",
+    "answers": [
+      { "questionId": "content_clarity", "questionText": "Nội dung môn học được trình bày rõ ràng, dễ hiểu.", "rating": 3 },
+      { "questionId": "content_relevance", "questionText": "Nội dung môn học phù hợp và hữu ích cho ngành học.", "rating": 4 },
+      { "questionId": "instructor_knowledge", "questionText": "Giảng viên thể hiện kiến thức chuyên môn sâu rộng.", "rating": 4 },
+      { "questionId": "instructor_preparedness", "questionText": "Giảng viên chuẩn bị bài giảng chu đáo.", "rating": 3, "comment": "Slide đôi khi hơi khó đọc." },
+      { "questionId": "instructor_communication", "questionText": "Giảng viên truyền đạt dễ hiểu, tạo hứng thú.", "rating": 4 },
+      { "questionId": "instructor_feedback", "questionText": "Giảng viên phản hồi bài tập/thắc mắc kịp thời, hữu ích.", "rating": 4 },
+      { "questionId": "assessment_fairness", "questionText": "Phương pháp kiểm tra, đánh giá công bằng, phù hợp.", "rating": 4 },
+      { "questionId": "general_improvement", "questionText": "Góp ý để cải thiện môn học/giảng viên (nếu có):", "comment": "Nên có thêm ví dụ thực tế." }
+    ],
+    "generalComment": "",
+    "submittedAt": { "$date": "2025-07-01T09:00:00Z" }
+  },
+
+   {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "courseId": { "$oid": "68182af0e0c6d908c3b9f317" }, 
+    "semester": "Học kỳ hè",
+    "academicYear": "2024-2025",
+    "instructorName": "Cô Hà Trang",
+    "answers": [
+        { "questionId": "content_clarity", "questionText": "Nội dung môn học được trình bày rõ ràng, dễ hiểu.", "rating": 4 },
+        { "questionId": "content_relevance", "questionText": "Nội dung môn học phù hợp và hữu ích cho ngành học.", "rating": 4 },
+        { "questionId": "instructor_knowledge", "questionText": "Giảng viên thể hiện kiến thức chuyên môn sâu rộng.", "rating": 5 },
+        { "questionId": "instructor_preparedness", "questionText": "Giảng viên chuẩn bị bài giảng chu đáo.", "rating": 4 },
+        { "questionId": "instructor_communication", "questionText": "Giảng viên truyền đạt dễ hiểu, tạo hứng thú.", "rating": 4 },
+        { "questionId": "instructor_feedback", "questionText": "Giảng viên phản hồi bài tập/thắc mắc kịp thời, hữu ích.", "rating": 4 },
+        { "questionId": "assessment_fairness", "questionText": "Phương pháp kiểm tra, đánh giá công bằng, phù hợp.", "rating": 3 },
+        { "questionId": "general_improvement", "questionText": "Góp ý để cải thiện môn học/giảng viên (nếu có):", "comment": null }
+    ],
+    "generalComment": "Thời gian học hơi ngắn.",
+    "submittedAt": { "$date": "2025-09-16T14:00:00Z" }
+  },
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "courseId": { "$oid": "68182af0e0c6d908c3b9f313" }, 
+    "semester": "Học kỳ 2",
+    "academicYear": "2024-2025",
+    "instructorName": "Trang Hồng Sơn",
+    "answers": [
+        { "questionId": "content_clarity", "questionText": "Nội dung môn học được trình bày rõ ràng, dễ hiểu.", "rating": 4 },
+        { "questionId": "content_relevance", "questionText": "Nội dung môn học phù hợp và hữu ích cho ngành học.", "rating": 4 },
+        { "questionId": "instructor_knowledge", "questionText": "Giảng viên thể hiện kiến thức chuyên môn sâu rộng.", "rating": 5 },
+        { "questionId": "instructor_preparedness", "questionText": "Giảng viên chuẩn bị bài giảng chu đáo.", "rating": 4 },
+        { "questionId": "instructor_communication", "questionText": "Giảng viên truyền đạt dễ hiểu, tạo hứng thú.", "rating": 4 },
+        { "questionId": "instructor_feedback", "questionText": "Giảng viên phản hồi bài tập/thắc mắc kịp thời, hữu ích.", "rating": 4 },
+        { "questionId": "assessment_fairness", "questionText": "Phương pháp kiểm tra, đánh giá công bằng, phù hợp.", "rating": 3 },
+        { "questionId": "general_improvement", "questionText": "Góp ý để cải thiện môn học/giảng viên (nếu có):", "comment": null }
+    ],
+    "generalComment": "Thời gian học hơi ngắn.",
+    "submittedAt": { "$date": "2025-03-26T14:00:00Z" }
+  }
+]

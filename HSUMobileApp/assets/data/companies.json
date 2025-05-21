@@ -1,0 +1,8 @@
+
+[
+    { "name": "Công ty CP VNG", "industry": "Công nghệ thông tin", "address": "Quận 7, TP.HCM", "website": "https://vng.com.vn", "isActive": true },
+    { "name": "FPT Software", "industry": "Công nghệ thông tin", "address": "Quận 9, TP.HCM", "website": "https://fptsoftware.com", "isActive": true },
+    { "name": "KMS Technology", "industry": "Phần mềm", "address": "Quận Tân Bình, TP.HCM", "website": "https://kms-technology.com", "isActive": true },
+    { "name": "TMA Solutions", "industry": "Viễn thông - Phần mềm", "address": "Quận 12, TP.HCM", "website": "https://tmasolutions.com", "isActive": true },
+    { "name": "Ngân hàng ACB", "industry": "Tài chính - Ngân hàng", "address": "Quận 3, TP.HCM", "website": "https://acb.com.vn", "isActive": true }
+  ]

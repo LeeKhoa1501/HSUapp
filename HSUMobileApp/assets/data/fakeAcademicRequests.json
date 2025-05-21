@@ -1,0 +1,21 @@
+
+[
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" }, 
+    "requestType": "GXN_CTDT",
+    "requestTitle": "Xin giấy xác nhận Chưa hoàn tất CTĐT",
+    "studentNotes": "Em cần giấy này để bổ sung hồ sơ vay vốn.",
+    "status": "Pending",
+    "receivingCampusId": { "$oid": "681d6d614b9058e36d9261d2" } 
+  },
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" }, 
+    "requestType": "GXN_NVQS",
+    "requestTitle": "Xin giấy xác nhận Hoãn NVQS",
+    "studentNotes": "Bổ sung cho ban chỉ huy quân sự phường.",
+    "status": "Approved",
+    "adminNotes": "Đã xử lý xong. Mời SV đến nhận.",
+    "processedBy": { "$oid": "67f8d41c5e62d05207534b7f" }, 
+    "processedDate": { "$date": "2025-05-20T10:00:00Z" }
+  }
+]

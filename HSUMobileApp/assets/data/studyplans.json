@@ -1,0 +1,54 @@
+
+[
+  {
+    "_id": { "$oid": "681c11f95b62f9e7e0493e72" }, 
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" }, 
+    "plannedSemesters": [
+     
+      {
+        "semesterCode": "241", 
+        "semesterName": "Học kỳ 1",
+        "academicYear": "2024-2025",
+        "courses": [
+          { "courseId": { "$oid": "68182af0e0c6d908c3b9f30b" } }, 
+          { "courseId": { "$oid": "68182af0e0c6d908c3b9f30c" } } 
+        ]
+      },
+      {
+        "semesterCode": "244", 
+        "semesterName": "Học kỳ Tết",
+        "academicYear": "2024-2025",
+        "courses": [
+          { "courseId": { "$oid": "68182af0e0c6d908c3b9f311" } }, 
+          { "courseId": { "$oid": "68182af0e0c6d908c3b9f313" } }  
+        ]
+      },
+      {
+        "semesterCode": "242", 
+        "semesterName": "Học kỳ 2",
+        "academicYear": "2024-2025",
+        "courses": [
+          { "courseId": { "$oid": "68182af0e0c6d908c3b9f311" } }, 
+          { "courseId": { "$oid": "68182af0e0c6d908c3b9f313" } }  
+        ]
+      },
+      
+       {
+        "semesterCode": "243", 
+        "semesterName": "Học kỳ hè",
+        "academicYear": "2024-2025",
+        "courses": [
+           { "courseId": { "$oid": "68182af0e0c6d908c3b9f317" } } 
+        ]
+      }
+    ],
+    "unsortedCourses": [ 
+      { "courseId": { "$oid": "68182af0e0c6d908c3b9f318" } }, 
+      { "courseId": { "$oid": "68182af0e0c6d908c3b9f30f" } }  
+    ],
+    
+     "createdAt": { "$date": "2025-05-07T04:00:00Z" }, 
+     "updatedAt": { "$date": "2025-05-07T04:00:00Z" } 
+  }
+  
+]

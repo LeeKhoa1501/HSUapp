@@ -1,0 +1,38 @@
+
+[
+    {
+      "type": "DEPOSIT_AUTO",
+      "amount": 700000,
+      "description": "Nạp tự động từ học phí HK1 2024-2025",
+      "transactionDate": "2024-09-05T03:00:00.000Z"
+    },
+    {
+      "type": "PRINT",
+      "amount": -150000,
+      "description": "In tài liệu \"Nhập môn Lập trình\" - 30 trang màu",
+      "pages": 30,
+      "documentName": "NMLT_Chapter1_Slides.pdf",
+      "transactionDate": "2025-03-10T02:30:00.000Z"
+    },
+    {
+      "type": "COPY",
+      "amount": -50000,
+      "description": "Photo bài tập nhóm - 10 trang đen trắng",
+      "pages": 10,
+      "transactionDate": "2025-04-22T07:15:00.000Z"
+    },
+    {
+      "type": "PRINT",
+      "amount": -80000,
+      "description": "In slide môn \"Cấu trúc dữ liệu\" - 16 trang",
+      "pages": 16,
+      "documentName": "CTDL_Week5.pptx",
+      "transactionDate": "2025-05-05T04:00:00.000Z"
+    },
+    {
+      "type": "DEPOSIT_MANUAL",
+      "amount": 5000000,
+      "description": "Nạp tiền mặt tại quầy dịch vụ sinh viên",
+      "transactionDate": "2025-05-10T01:30:00.000Z"
+    }
+  ]

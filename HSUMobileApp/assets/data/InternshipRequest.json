@@ -1,0 +1,56 @@
+[
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "studentClass": "QL22111",
+    "semester": "2433",
+    "academicYear": "2024-2025",
+    "internshipType": "tot_nghiep",
+    "companyId": { "$oid": "68216e3886af2d9683e9c4e2" }, 
+    "receivingCampusId": { "$oid": "681d6d614b9058e36d9261d2" },
+    "requestDate": { "$date": "2025-07-01T03:00:00.000Z" },
+    "startDate": { "$date": "2025-07-15T00:00:00.000Z" },
+    "endDate": { "$date": "2025-10-15T00:00:00.000Z" },
+    "status": "Pending",
+    "notes": "Em xin thực tập vị trí Software Engineer tại KMS Technology."
+  },
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" }, 
+    "studentClass": "QL22111",
+    "semester": "2412", 
+    "academicYear": "2024-2025",
+    "internshipType": "du_an_doanh_nghiep",
+    "companyId": { "$oid": "68216e3886af2d9683e9c4e0" }, 
+    "receivingCampusId": { "$oid": "681d6d614b9058e36d9261d3" },
+    "requestDate": { "$date": "2025-01-10T00:00:00.000Z" },
+    "status": "Approved",
+    "approvalNotes": "Đã duyệt cho dự án tại VNG.",
+    "processedBy": { "$oid": "ObjectId_cua_Admin_hoac_GV_duyet" }, 
+    "processedDate": { "$date": "2025-01-15T00:00:00.000Z" }
+  },
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "studentClass": "QL22111",
+    "semester": "2521",
+    "academicYear": "2025-2026",
+    "internshipType": "nhan_thuc",
+    "companyNameOther": "FPT Software",
+    "companyAddressOther": "Quận 9, TP.HCM",
+    "companyContactOther": "https://fptsoftware.com",
+    "receivingCampusId": { "$oid": "681d6d614b9058e36d9261d2" },
+    "requestDate": { "$date": "2025-08-01T00:00:00.000Z" },
+    "status": "Pending",
+    "notes": "Xin thực tập nhận thức, tìm hiểu quy trình làm việc."
+  },
+  {
+    "userId": { "$oid": "67f8d41c5e62d05207534b7f" },
+    "studentClass": "QL22111",
+    "semester": "2433",
+    "academicYear": "2024-2025",
+    "internshipType": "tot_nghiep",
+    "companyId": { "$oid": "68216e3886af2d9683e9c4e3" }, 
+    "receivingCampusId": { "$oid": "681d6d614b9058e36d9261d2" },
+    "requestDate": { "$date": "2025-04-15T09:00:00.000Z" },
+    "status": "Rejected", 
+    "rejectionReason": "Hồ sơ chưa đáp ứng yêu cầu của công ty."
+  }
+]

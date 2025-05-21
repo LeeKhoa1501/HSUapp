@@ -1,0 +1,83 @@
+# === General ===
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === Environment Variables ===
+# NEVER commit your .env file containing secrets!
+# Create a .env.example file with placeholder values instead.
+.env
+.env.*
+!.env.example
+# Keep user's local env rule
+.env*.local
+
+# === Node Dependencies ===
+# Ignore node_modules in both Frontend and Backend and any other location
+node_modules/
+# More specific paths (optional but clear)
+/HSUMobileApp/node_modules/
+/HSUBackend/node_modules/
+
+# === IDE/Editor Folders ===
+.vscode/
+.idea/
+
+# === Expo / React Native Specific ===
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+# Metro cache
+.metro-health-check*
+# Typescript build info
+*.tsbuildinfo
+
+# === Native Build Artifacts (Android/iOS) ===
+# Android
+/HSUMobileApp/android/app/build/
+/HSUMobileApp/android/build/
+/HSUMobileApp/android/.gradle/
+/HSUMobileApp/android/app/debug/
+/HSUMobileApp/android/app/release/
+/HSUMobileApp/android/app/*.keystore
+/HSUMobileApp/android/*.keystore
+/HSUMobileApp/android/app/*.jks
+/HSUMobileApp/android/*.jks
+# iOS
+/HSUMobileApp/ios/build/
+/HSUMobileApp/ios/Pods/
+*.xcworkspace/xcshareddata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+# Misc signing / certs
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+
+# === Backend Specific (Node.js - Add others if needed) ===
+# Example: Log files if your backend generates them differently
+# /HSUBackend/logs/
+
+# === .NET Specific (Commented out - Add back if HSUBackend is .NET) ===
+# [Bb]in/
+# [Oo]bj/
+# *.suo
+# *.user
+# *.userosscache
+# *.sln.docstates
+
+# === Misc ===
+# Temporary files etc.
+*.orig.*
+
+
+# .gitignore file (nằm trong HSUBackend)
+HSUBackend/node_modules
+HSUBackend/.env

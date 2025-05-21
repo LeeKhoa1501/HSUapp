@@ -1,0 +1,122 @@
+[
+  {
+    "courseCode": "LE202DV01",
+    "courseName": "Tư duy Phản biện",
+    "credits": 3.00,
+    "hasPrerequisite": false,
+    "fee": 5652000,
+    "notes": null
+  },
+  {
+    "courseCode": "AI301DE01",
+    "courseName": "Máy học",
+    "credits": 3.00,
+    "hasPrerequisite": false,
+    "fee": 5652000,
+    "notes": null
+  },
+  {
+    "courseCode": "PE120DV01",
+    "courseName": "Thể hình",
+    "credits": 3.00,
+    "hasPrerequisite": false,
+    "fee": 2400000,
+    "notes": null
+  },
+  {
+    "courseCode": "SW403DE01",
+    "courseName": "Quản trị Dự án Phần mềm",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 10731000,
+    "notes": null
+  },
+  {
+    "courseCode": "IT202DV01",
+    "courseName": "Hệ quản trị Cơ sở Dữ liệu",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 7336000,
+    "notes": null
+  },
+  {
+    "courseCode": "IT306DE01",
+    "courseName": "Chuyên đề Công nghệ",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 9837000,
+    "notes": null
+  },
+  {
+    "courseCode": "IT308DV01",
+    "courseName": "Đồ án Chuyên ngành A",
+    "credits": 2.00,
+    "hasPrerequisite": true,
+    "fee": 3491000,
+    "notes": null
+  },
+  {
+    "courseCode": "SW101DV01",
+    "courseName": "Nhập môn Lập trình",
+    "credits": 3.00,
+    "hasPrerequisite": false,
+    "fee": 7336000,
+    "notes": null
+  },
+  {
+    "courseCode": "SW319DE01",
+    "courseName": "An toàn Phần mềm và Hệ thống",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 9837000,
+    "notes": null
+  },
+  {
+    "courseCode": "AI301DE01",
+    "courseName": "Máy học",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 9837000,
+    "notes": null
+  },
+  {
+    "courseCode": "AI306DE01",
+    "courseName": "Phân tích dữ liệu",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 9837000,
+    "notes": null
+  },
+  {
+    "courseCode": "AI416DE01",
+    "courseName": "Trực quan hóa dữ liệu",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 10731000,
+    "notes": null
+  },
+  {
+    "courseCode": "SW305DE01",
+    "courseName": "Phát triển Web",
+    "credits": 3.00,
+    "hasPrerequisite": false,
+    "fee": 9837000,
+    "notes": null
+  },
+  {
+    "courseCode": "SW318DE01",
+    "courseName": "Kỹ thuật Thu thập Yêu cầu PM",
+    "credits": 3.00,
+    "hasPrerequisite": true,
+    "fee": 9837000,
+    "notes": null
+  },
+  {
+    "courseCode": "IT450DV01",
+    "courseName": "Thực tập Tốt nghiệp",
+    "credits": 9.00,
+    "hasPrerequisite": false,
+    "fee": 10660000,
+    "notes": null
+  }
+]

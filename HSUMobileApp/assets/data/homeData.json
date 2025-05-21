@@ -1,0 +1,22 @@
+{
+  "functions": [
+    { "id": 1, "name": "Chuyên cần", "icon": "running", "type": "fas", "screenName": "ChuyenCan" },
+    { "id": 2, "name": "Đánh giá môn học", "icon": "chart-bar", "type": "fas", "screenName": "EvaluationList" },
+    { "id": 3, "name": "Đặt phòng", "icon": "building", "type": "fas", "screenName": "Booking" },
+    { "id": 4, "name": "Điểm", "icon": "clipboard-check", "type": "fas", "screenName": "Grades" },
+    { "id": 5, "name": "Điểm danh", "icon": "map-marker-alt", "type": "fas", "screenName": "attendance" },
+    { "id": 6, "name": "Học phí", "icon": "money-bill-wave", "type": "fas", "screenName": "tuition" },
+    { "id": 7, "name": "Kế hoạch HTCN", "icon": "project-diagram", "type": "fas", "screenName": "StudyPlan" },
+    { "id": 8, "name": "Khảo sát CVHT", "icon": "poll", "type": "fas", "screenName": "SurveyCVHTScreen" }, 
+    { "id": 9, "name": "Khảo sát dịch vụ", "icon": "clipboard-list", "type": "fas", "screenName": "SurveyServiceScreen" },
+    { "id": 10, "name": "Lịch thi", "icon": "clipboard-list", "type": "fas", "screenName": "ExamSchedule" },
+    { "id": 11, "name": "Sinh viên góp ý", "icon": "smile", "type": "fas", "screenName": "FeedbackScreen" },
+    { "id": 12, "name": "Sổ tay sinh viên", "icon": "book", "type": "fas", "screenName": "Handbook" },
+    { "id": 13, "name": "Sự kiện đã tham gia", "icon": "calendar-check", "type": "fas", "screenName": "AttendedEventsScreen" },
+    { "id": 14, "name": "Tài khoản photo", "icon": "file-alt", "type": "fas", "screenName": "PhotoAccountScreen" },
+    { "id": 15, "name": "Thông tin & Chính sách", "icon": "info-circle", "type": "fas", "screenName": "PolicyInfoScreen" },
+    { "id": 16, "name": "Thời khoá biểu", "icon": "calendar-alt", "type": "fas", "screenName": "Timetable" },
+    { "id": 17, "name": "Thực tập", "icon": "briefcase", "type": "fas", "screenName": "InternshipList" },
+    { "id": 18, "name": "Yêu cầu học vụ", "icon": "pen", "type": "fas", "screenName": "AcademicRequestList" }
+  ]
+}

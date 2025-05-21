@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Trụ sở chính Nguyễn Văn Tráng", 
+       "address":"Số 8 Nguyễn Văn Tráng, P. Bến Thành, Quận 1, TP.HCM",
+        "type":"Main Campus"
+    },
+    {
+        "name": "Cơ sở Thành Thái", 
+       "address":"7/1 Thành Thái, Phường 14, Quận 10, TP.HCM",
+        "type":"Campus"
+    },
+    {
+        "name": "Trụ sở Quang Trung", 
+       "address":"Đường số 10, Công viên phần mềm Quang Trung, Quận 12, TP.HCM",
+        "type":"Campus"
+    }
+]
