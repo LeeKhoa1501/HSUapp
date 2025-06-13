@@ -1,212 +1,323 @@
-// screens/AccountSettingsScreen.js
-import React, { useState, useEffect } from 'react'; // Đảm bảo useEffect được import
-import {View, Text, ScrollView, TouchableOpacity, Switch, StyleSheet, Alert,ActivityIndicator } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
-import { useNavigation } from '@react-navigation/native'; 
+// HSUMobileApp/screens/AccountSettingsScreen.js
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import {
+    View, Text, ScrollView, TouchableOpacity,
+    StyleSheet, Alert, ActivityIndicator, Image, Linking,Platform
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Provider as PaperProvider } from 'react-native-paper'; 
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'; // Thêm MaterialIcons nếu cần
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
+// --- Constants ---
+const DEFAULT_AVATAR = require('../assets/images/user.png'); // Khoa tạo 1 ảnh avatar mặc định
+
+// --- Main Component: AccountSettingsScreen ---
 const AccountSettingsScreen = () => {
-  const [biometricsEnabled, setBiometricsEnabled] = useState(false);
+    const navigation = useNavigation();
+    const isMountedRef = useRef(true);
 
-  const [user, setUser] = useState({ fullName: 'Đang tải...', studentId: '...' });
-  const [isLoading, setIsLoading] = useState(true); // Thêm state loading ban đầu
-  const navigation = useNavigation(); // Lấy navigation object
+    // --- State ---
+    const [user, setUser] = useState({ fullName: 'Đang tải...', studentId: '...', avatarUrl: null });
+    const [isLoading, setIsLoading] = useState(true);
 
-  // --- useEffect để load dữ liệu user từ AsyncStorage ---
-  useEffect(() => {
-    let isMounted = true; // Cờ kiểm tra unmount
+    // --- Lifecycle: Component Mount/Unmount ---
+    useEffect(() => {
+        isMountedRef.current = true;
+        return () => { isMountedRef.current = false; };
+    }, []);
 
-    const loadUserData = async () => {
-      console.log("ACCOUNT_SCREEN: Loading user data from AsyncStorage...");
-      setIsLoading(true); // Bắt đầu loading
-      try {
-        const userDataString = await AsyncStorage.getItem('userData'); // Key phải khớp lúc lưu
-        console.log("ACCOUNT_SCREEN: userDataString from AsyncStorage:", userDataString);
-        if (isMounted) { // Chỉ cập nhật nếu component còn mount
-            if (userDataString) {
-              const userData = JSON.parse(userDataString);
-              setUser({
-                fullName: userData.fullName || '',
-                studentId: userData.studentId || ''
-              });
-              console.log("ACCOUNT_SCREEN: User data loaded from AsyncStorage:", userData);
-            } else {
-              console.log("ACCOUNT_SCREEN: No user data found in AsyncStorage.");
-              setUser({ fullName: 'Không tìm thấy', studentId: 'N/A' });
-              // Có thể Alert hoặc chuyển về Login nếu không có dữ liệu user
-              // Alert.alert("Lỗi", "Không tìm thấy thông tin người dùng.");
-              // navigation.replace('Login');
+    // --- Load User Data ---
+    const loadUserData = useCallback(async () => {
+        if (!isMountedRef.current) return;
+        console.log("[AccountSettings] Loading user data...");
+        setIsLoading(true);
+        try {
+            // Giả sử thông tin user (bao gồm avatarUrl) được lưu trong 'userData' khi đăng nhập
+            // Hoặc Khoa có thể gọi API /api/auth/me ở đây nếu muốn dữ liệu mới nhất
+            const userDataString = await AsyncStorage.getItem('userData');
+            if (isMountedRef.current) {
+                if (userDataString) {
+                    const loadedUser = JSON.parse(userDataString);
+                    setUser({
+                        fullName: loadedUser.fullName || 'Chưa cập nhật',
+                        studentId: loadedUser.studentId || 'N/A',
+                        avatarUrl: loadedUser.avatarUrl || null, // Lấy avatarUrl
+                    });
+                    console.log("[AccountSettings] User data loaded:", loadedUser);
+                } else {
+                    console.warn("[AccountSettings] No user data found in AsyncStorage.");
+                    Alert.alert("Lỗi", "Không tìm thấy thông tin người dùng. Vui lòng đăng nhập lại.", [
+                        { text: "OK", onPress: () => navigation.replace('Login') }
+                    ]);
+                }
             }
+        } catch (error) {
+            console.error("[AccountSettings] Error loading user data:", error);
+            if (isMountedRef.current) {
+                Alert.alert("Lỗi", "Không thể tải thông tin người dùng.");
+            }
+        } finally {
+            if (isMountedRef.current) setIsLoading(false);
         }
-      } catch (error) {
-        console.error("ACCOUNT_SCREEN: Lỗi load user data from AsyncStorage:", error);
-         if (isMounted) {
-             setUser({ fullName: 'Lỗi tải', studentId: 'Lỗi' });
-             Alert.alert("Lỗi", "Không thể tải thông tin người dùng.");
-         }
-      } finally {
-         if (isMounted) {
-            setIsLoading(false); // Kết thúc loading
-         }
-      }
+    }, [navigation]);
+
+    useEffect(() => {
+        loadUserData();
+    }, [loadUserData]);
+
+    // --- Event Handlers ---
+    const handleLogout = useCallback(() => {
+        Alert.alert(
+            "Xác nhận Đăng xuất",
+            "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
+            [
+                { text: "Hủy", style: "cancel" },
+                {
+                    text: "Đăng xuất",
+                    onPress: async () => {
+                        console.log("[AccountSettings] Logging out...");
+                        try {
+                            await AsyncStorage.multiRemove(['userToken', 'userData', 'favoriteFunctionIds']); // Xóa các key liên quan
+                            if (isMountedRef.current) navigation.replace("Login");
+                        } catch (error) {
+                            console.error("[AccountSettings] Logout error:", error);
+                            Alert.alert("Lỗi", "Không thể đăng xuất. Vui lòng thử lại.");
+                        }
+                    },
+                    style: "destructive",
+                },
+            ],
+            { cancelable: true }
+        );
+    }, [navigation]);
+
+    const handleNavigateTo = (screenName) => {
+        if (screenName) {
+            navigation.navigate(screenName);
+        } else {
+            Alert.alert("Thông báo", "Chức năng này đang được phát triển.");
+        }
     };
 
-    loadUserData();
-
-    // Cleanup function
-    return () => {
-      isMounted = false;
-    };
-  }, []); // Chạy 1 lần khi mount
-
-  // --- Hàm xử lý Đăng xuất (Đã sửa lại, đảm bảo AsyncStorage và Navigation đúng) ---
-  const handleLogout = () => {
-    Alert.alert(
-      "Xác nhận đăng xuất",
-      "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?", // Thêm nội dung rõ hơn
-      [
-        { text: "Hủy", style: "cancel" },
-        {
-          text: "Đăng xuất", // Đổi chữ nút
-          onPress: async () => {
-            console.log("ACCOUNT_SCREEN: Logging out...");
-            try {
-              // Xóa các key liên quan đến phiên đăng nhập
-              await AsyncStorage.multiRemove(['userToken', 'userData']); // Đảm bảo đúng tên key
-              console.log("ACCOUNT_SCREEN: AsyncStorage cleared.");
-              // Dùng replace để xóa stack cũ và về màn hình Login
-              navigation.replace("Login");
-              console.log("ACCOUNT_SCREEN: Navigated to Login.");
-            } catch (error) {
-              console.error("ACCOUNT_SCREEN: Lỗi khi xóa AsyncStorage:", error);
-              Alert.alert("Lỗi", "Không thể đăng xuất. Vui lòng thử lại.");
+    // --- Render Helper: Menu Item ---
+    const MenuItem = ({ icon, iconFamily = 'FontAwesome5', text, onPress, isDestructive = false }) => (
+        <TouchableOpacity style={styles.menuItem} onPress={onPress} activeOpacity={0.7}>
+            {iconFamily === 'FontAwesome5' ?
+                <FontAwesome5 name={icon} size={20} color={isDestructive ? styles.destructiveText.color : styles.menuIcon.color} style={styles.menuIcon} />
+                : <MaterialIcons name={icon} size={22} color={isDestructive ? styles.destructiveText.color : styles.menuIcon.color} style={styles.menuIcon} />
             }
-          },
-          style: "destructive", // Màu đỏ
-        },
-      ],
-      { cancelable: true }
+            <Text style={[styles.menuText, isDestructive && styles.destructiveText]}>{text}</Text>
+            {!isDestructive && <FontAwesome5 name="chevron-right" size={14} color="#C5C5C7" />}
+        </TouchableOpacity>
     );
-  };
 
-  // --- Render UI ---
-  // Có thể hiển thị loading ban đầu nếu muốn
-   if (isLoading) {
-     return (
-       <SafeAreaView style={styles.safeArea}>
-         <View style={styles.centered}>
-           <ActivityIndicator size="large" color="#002366" />
-         </View>
-       </SafeAreaView>
-     );
-   }
+    // --- Render Loading ---
+    if (isLoading) {
+        return (
+            <SafeAreaView style={[styles.safeArea, styles.centered]}>
+                <ActivityIndicator size="large" color="#0056b3" />
+            </SafeAreaView>
+        );
+    }
 
-  return (
-    <PaperProvider>
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* === Khối Tài khoản === */}
-          <Text style={styles.sectionTitle}>Tài khoản</Text>
-          <View style={styles.card}>
-            {/* --- Dòng thông tin User (Lấy từ state user) --- */}
-            <View style={styles.userInfoRow}>
-              <FontAwesome name="user-circle-o" size={24} color="#002366" style={styles.iconSpacing}/>
-              <View style={styles.userInfoTextContainer}>
-                  <Text style={styles.nameText} numberOfLines={1}>{user.fullName}</Text>
-                  <Text style={styles.studentIdText}>{user.studentId}</Text>
-              </View>
-            </View>
-            <View style={styles.separator} />
+    // --- MAIN RENDER ---
+    return (
+        <SafeAreaView style={styles.safeArea}>
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+            >
+                {/* --- User Info Header --- */}
+                <View style={styles.userInfoHeader}>
+                    <Image
+                        source={user.avatarUrl ? { uri: user.avatarUrl } : DEFAULT_AVATAR}
+                        style={styles.avatar}
+                    />
+                    <Text style={styles.userName}>{user.fullName}</Text>
+                    <Text style={styles.userMssv}>MSSV: {user.studentId}</Text>
+                    <TouchableOpacity style={styles.editProfileButton} onPress={() => Alert.alert("Thông báo", "Chức năng chỉnh sửa thông tin cá nhân đang phát triển.")}>
+                        <Text style={styles.editProfileText}>Chỉnh sửa thông tin</Text>
+                    </TouchableOpacity>
+                </View>
 
-            {/* --- Dòng Sinh trắc học --- */}
-            <View style={[styles.menuItemRow, styles.rowBetween]}>
-              <View style={styles.menuItemContent}>
-                <FontAwesome name="question-circle-o" size={20} color="#555" style={styles.iconSpacing} />
-                <Text style={styles.optionText}>Sinh trắc học</Text>
-              </View>
-              <Switch
-                value={biometricsEnabled}
-                onValueChange={setBiometricsEnabled}
-                trackColor={{ false: "#E9E9EA", true: "#81b0ff" }}
-                thumbColor={biometricsEnabled ? "#0056b3" : "#f4f3f4"}
-                ios_backgroundColor="#E9E9EA"
-              />
-            </View>
-             <View style={styles.separator} />
+                {/* --- Quick Actions (Mã QR, Thẻ Sinh viên) --- */}
+                <View style={styles.quickActionsContainer}>
+                    <TouchableOpacity style={styles.quickActionButton} onPress={() => handleNavigateTo('QRCodeScreen')}>
+                        <FontAwesome5 name="qrcode" size={22} color="#0056b3" />
+                        <Text style={styles.quickActionText}>Mã QR</Text>
+                    </TouchableOpacity>
+                    <View style={styles.quickActionSeparator} />
+                    <TouchableOpacity style={styles.quickActionButton} onPress={() => handleNavigateTo('StudentCardScreen')}>
+                        <FontAwesome5 name="id-card" size={22} color="#0056b3" />
+                        <Text style={styles.quickActionText}>Thẻ Sinh viên</Text>
+                    </TouchableOpacity>
+                </View>
 
-            {/* --- Dòng Mã QR --- */}
-            <TouchableOpacity style={styles.menuItemRow}>
-              <View style={styles.menuItemContent}>
-                <FontAwesome name="qrcode" size={20} color="#555" style={styles.iconSpacing} />
-                <Text style={styles.optionText}>Mã QR</Text>
-              </View>
-            </TouchableOpacity>
-             <View style={styles.separator} />
+                {/* --- Menu Section: Hỗ trợ --- */}
+                <View style={styles.menuSection}>
+                    <Text style={styles.menuSectionTitle}>HỖ TRỢ</Text>
+                    <MenuItem icon="phone-alt" text="Liên hệ" onPress={() => Linking.openURL('tel:18001577')} />
+                    <View style={styles.menuSeparator} />
+                    <MenuItem icon="video" text="Video Hướng dẫn" onPress={() => Alert.alert("Thông báo","Xem video trên kênh YouTube của HSU.")} />
+                </View>
 
-            {/* --- Dòng Student Card --- */}
-            <TouchableOpacity style={styles.menuItemRow}>
-               <View style={styles.menuItemContent}>
-                <FontAwesome name="id-card-o" size={20} color="#555" style={styles.iconSpacing} />
-                <Text style={styles.optionText}>Student card</Text>
-              </View>
-            </TouchableOpacity>
-             <View style={styles.separator} />
+                {/* --- Menu Section: Ứng dụng --- */}
+                <View style={styles.menuSection}>
+                    <Text style={styles.menuSectionTitle}>ỨNG DỤNG</Text>
+                    <MenuItem icon="cog" text="Cài đặt chung" onPress={() => handleNavigateTo('GeneralSettingsScreen')} />
+                    {/* <View style={styles.menuSeparator} />
+                    <MenuItem icon="shield-alt" text="Bảo mật & Quyền riêng tư" onPress={() => handleNavigateTo('SecuritySettingsScreen')} />
+                    <View style={styles.menuSeparator} />
+                    <MenuItem icon="bell" text="Thông báo" onPress={() => handleNavigateTo('NotificationSettingsScreen')} /> */}
+                </View>
 
-            {/* --- Dòng Đăng xuất (Đã có onPress={handleLogout}) --- */}
-            <TouchableOpacity style={styles.menuItemRow} onPress={handleLogout}>
-              <View style={styles.menuItemContent}>
-                <FontAwesome name="sign-out" size={22} color="#dc3545" style={styles.iconSpacing} />
-                <Text style={[styles.optionText, styles.logoutText]}>Đăng xuất</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+                {/* --- Logout Button --- */}
+                <View style={[styles.menuSection, {marginTop: 20}]}>
+                     <MenuItem icon="sign-out-alt" text="Đăng xuất" onPress={handleLogout} isDestructive />
+                </View>
 
-          {/* === Khối Hỗ trợ === */}
-          <Text style={styles.sectionTitle}>Hỗ trợ</Text>
-          <View style={styles.card}>
-            <TouchableOpacity style={styles.menuItemRow}>
-               <View style={styles.menuItemContent}>
-                <FontAwesome name="phone" size={22} color="#555" style={styles.iconSpacing} />
-                <Text style={styles.optionText}>Liên hệ</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.separator} />
-            <TouchableOpacity style={styles.menuItemRow}>
-               <View style={styles.menuItemContent}>
-                <FontAwesome name="play-circle-o" size={20} color="#555" style={styles.iconSpacing} />
-                <Text style={styles.optionText}>Video</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+                {/* --- App Version --- */}
+                <Text style={styles.appVersion}>Phiên bản 4.0.0 (HSUAPPNEW)</Text>
 
-          {/* === Khối Hoa Sen === */}
-          <Text style={styles.sectionTitle}>Hoa Sen</Text>
-          <View style={styles.card}>
-            <View style={styles.menuItemRow}>
-               <View style={styles.menuItemContent}>
-                <FontAwesome name="mobile-phone" size={24} color="#555" style={[styles.iconSpacing, { marginLeft: 2 }]}/>
-                <Text style={styles.optionText}>Phiên bản 3.2.2</Text>
-              </View>
-            </View>
-          </View>
-
-        </ScrollView>
-      </SafeAreaView>
-    </PaperProvider>
-  );
+            </ScrollView>
+        </SafeAreaView>
+    );
 };
 
-// --- StyleSheet (Thêm centered nếu giữ lại loading) ---
+// --- StyleSheet (Thiết kế lại theo Hình 2) ---
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: "#f0f2f5" }, container: { flex: 1 }, scrollContent: { paddingHorizontal: 16, paddingVertical: 24, paddingBottom: 40 }, sectionTitle: { fontSize: 16, fontWeight: "600", color: "#555", marginBottom: 12, marginLeft: 4, textTransform: 'uppercase', letterSpacing: 0.5 }, card: { backgroundColor: "#fff", borderRadius: 12, marginBottom: 24, shadowColor: "#aaa", shadowOpacity: 0.15, shadowOffset: { width: 0, height: 2 }, shadowRadius: 5, elevation: 2 }, userInfoRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 20 }, userInfoTextContainer: { flex: 1 }, iconSpacing: { width: 24, textAlign: 'center', marginRight: 18 }, nameText: { fontSize: 17, fontWeight: "bold", color: "#111", marginBottom: 3 }, studentIdText: { fontSize: 14, color: "#ff7f00", fontWeight: '500' }, menuItemRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 15, minHeight: 50 }, menuItemContent: { flexDirection: 'row', alignItems: 'center', flex: 1 }, rowBetween: {}, optionText: { fontSize: 16, color: "#333" }, logoutText: { color: "#dc3545", fontWeight: '500' }, separator: { height: 1, backgroundColor: '#f0f2f5', marginLeft: 16 + 24 + 18 },
-  // Thêm style này nếu dùng loading ban đầu
-  centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
+    safeArea: { flex: 1, backgroundColor: '#F0F2F5' }, // Màu nền xám nhạt
+    container: { flex: 1 },
+    scrollContent: { paddingBottom: 30 },
+    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+
+    // User Info Header
+    userInfoHeader: {
+        backgroundColor: '#0056b3', // Màu xanh HSU đậm
+        paddingTop: Platform.OS === 'android' ? 30 : 20,
+        paddingBottom: 20,
+        alignItems: 'center',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        marginBottom: 20,
+    },
+    avatar: {
+        width: 90,
+        height: 90,
+        borderRadius: 45,
+        borderWidth: 3,
+        borderColor: '#FFFFFF',
+        marginBottom: 12,
+    },
+    userName: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        marginBottom: 4,
+    },
+    userMssv: {
+        fontSize: 14,
+        color: '#E0E0E0',
+        marginBottom: 15,
+    },
+    editProfileButton: {
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        paddingHorizontal: 15,
+        paddingVertical: 8,
+        borderRadius: 15,
+    },
+    editProfileText: {
+        color: '#FFFFFF',
+        fontSize: 13,
+        fontWeight: '500',
+    },
+
+    // Quick Actions
+    quickActionsContainer: {
+        flexDirection: 'row',
+        backgroundColor: '#FFFFFF',
+        marginHorizontal: 16,
+        borderRadius: 12,
+        paddingVertical: 10, // Giảm padding
+        marginTop: -35, // Để nó đè lên phần header một chút
+        marginBottom: 25,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+    },
+    quickActionButton: {
+        flex: 1,
+        alignItems: 'center',
+        paddingVertical: 10,
+    },
+    quickActionText: {
+        marginTop: 8,
+        fontSize: 13,
+        color: '#0056b3',
+        fontWeight: '500',
+    },
+    quickActionSeparator: {
+        width: 1,
+        backgroundColor: '#E0E0E0',
+        marginVertical: 8,
+    },
+
+    // Menu Section
+    menuSection: {
+        backgroundColor: '#FFFFFF',
+        marginHorizontal: 16,
+        borderRadius: 12,
+        marginBottom: 15,
+        overflow: 'hidden', // Để bo góc cho separator
+    },
+    menuSectionTitle: {
+        fontSize: 13,
+        fontWeight: '600',
+        color: '#666666',
+        paddingHorizontal: 16,
+        paddingTop: 15,
+        paddingBottom: 8,
+        textTransform: 'uppercase',
+    },
+    menuItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 15,
+        paddingHorizontal: 16,
+    },
+    menuIcon: {
+        width: 24, // Kích thước icon cố định
+        textAlign: 'center',
+        marginRight: 16,
+        color: '#4F4F4F',
+    },
+    menuText: {
+        flex: 1,
+        fontSize: 16,
+        color: '#333333',
+    },
+    destructiveText: {
+        color: '#FF3B30', // Màu đỏ cho destructive actions
+        fontWeight: '500',
+    },
+    menuSeparator: {
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: '#E0E0E0',
+        marginLeft: 16 + 24 + 16, // iconWidth + iconMarginRight + paddingHorizontal
+    },
+
+    // App Version
+    appVersion: {
+        textAlign: 'center',
+        fontSize: 12,
+        color: '#8E8E93',
+        marginTop: 20,
+        marginBottom: 10,
+    },
 });
 
 export default AccountSettingsScreen;

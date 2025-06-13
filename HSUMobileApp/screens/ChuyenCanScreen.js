@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 // --- API URL (Giống màn hình AttendanceScreen) ---
-const API_BASE_URL = 'http://10.101.38.213:5000'; // <-- IP Backend
+const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- IP Backend
 
 // --- Component con: Hiển thị một môn học có vấn đề ---
 const ProblematicCourseItem = React.memo(({ item }) => {

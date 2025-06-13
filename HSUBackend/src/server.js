@@ -6,9 +6,6 @@ const path = require('path');
 const connectDB = require('./config/db'); // Đường dẫn đến file kết nối DB của anh
 
 // --- 1. LOAD BIẾN MÔI TRƯỜNG (.env) ---
-// Đảm bảo file .env của anh nằm ở thư mục HSUBackend/ (cùng cấp với thư mục src/)
-// Nếu file .env nằm ở thư mục gốc của project (bên ngoài HSUBackend), thì dùng:
-// dotenv.config({ path: path.resolve(__dirname, '../.env') });
 dotenv.config(); // Nếu .env nằm cùng cấp với package.json của HSUBackend
 
 console.log(`[Server Init] MONGODB_URI Loaded: ${process.env.MONGODB_URI ? 'OK' : '!!! UNDEFINED OR NOT LOADED !!!'}`);
@@ -93,7 +90,7 @@ app.use('/api/internships', internshipRoutes);
 console.log('[Server Init] Routes mounted.');
 
 // Test route
-app.get('/', (req, res) => {
+app.get('/khoa', (req, res) => {
     res.send('HSUAPPNEW Backend API is running...');
 });
 

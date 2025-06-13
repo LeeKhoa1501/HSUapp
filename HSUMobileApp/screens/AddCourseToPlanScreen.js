@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 // import { CheckBox } from '@rneui/themed'; // <<< KHÔNG DÙNG >>>
 
 // <<< ĐỊNH NGHĨA BASE_URL TRỰC TIẾP >>>
-const BASE_URL = 'http://10.101.38.213:5000'; // <<< THAY IP ĐÚNG >>>
+const BASE_URL = 'http://10.101.39.47:5000'; // <<< THAY IP ĐÚNG >>>
 
 // --- Component Custom Checkbox ---
 const CustomCheckbox = ({ isChecked, onPress }) => (

@@ -1,21 +1,24 @@
-// src/routes/bookingRoutes.js
+// HSUBackend/src/routes/bookingRoutes.js
 const express = require('express');
 const { createBooking, getAllBookings, getMyBookings } = require('../controllers/bookingController');
 const { protect } = require('../middleware/authMiddleware'); // Import middleware xác thực
 
-
 const router = express.Router();
 
-// Định nghĩa route POST '/'
-// protect sẽ chạy trước createBooking để đảm bảo user đã đăng nhập
+// --- Route để TẠO một booking mới ---
+// POST /api/bookings/
 router.route('/')
-.post(protect, createBooking)
-.get(getAllBookings);
+    .post(protect, createBooking);
 
-router.route('/mybookings')
-.post(protect, createBooking);
+// --- Route để LẤY TẤT CẢ bookings (Thường cho Admin) ---
+// GET /api/bookings/
+// Nếu chỉ Admin được xem, thêm isAdmin: .get(protect, isAdmin, getAllBookings);
+router.route('/') // Có thể gộp vào dòng trên: .get(getAllBookings)
+    .get(protect, getAllBookings); 
 
-// Thêm các route khác sau này (vd: GET lấy booking của tôi)
-// router.route('/mybookings').get(protect, getMyBookings);
+// --- Route để SINH VIÊN LẤY booking CỦA CHÍNH MÌNH ---
+// GET /api/bookings/my
+router.route('/my')
+    .get(protect, getMyBookings); // << ĐẢM BẢO DÙNG GET VÀ getMyBookings
 
 module.exports = router;

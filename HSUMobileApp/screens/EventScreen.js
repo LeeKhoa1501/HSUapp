@@ -11,7 +11,7 @@ import { format, parseISO } from 'date-fns'; // Import parseISO để xử lý c
 import vi from 'date-fns/locale/vi';     // Tiếng Việt cho date-fns
 
 //  IP VÀ PORT ĐÚNG CỦA BACKEND, HOẶC IMPORT TỪ CONFIG FILE
-const BASE_URL = 'http://10.101.38.213:5000';
+const BASE_URL = 'http://10.101.39.47:5000';
 
 const EventScreen = () => {
     const navigation = useNavigation();

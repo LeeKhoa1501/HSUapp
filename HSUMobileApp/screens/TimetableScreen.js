@@ -12,7 +12,7 @@ LocaleConfig.locales['vi'] = { monthNames: ['Tháng 1','Tháng 2','Tháng 3','Th
 LocaleConfig.defaultLocale = 'vi';
 
 // --- API BASE URL ---
-const API_BASE_URL = 'http://10.101.38.213:5000'; // <-- Sửa lại IP/URL backend đúng
+const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- Sửa lại IP/URL backend đúng
 
 // --- Lấy ngày hôm nay ---
 const getTodayDateString = () => new Date().toISOString().split('T')[0];

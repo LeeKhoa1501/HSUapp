@@ -6,7 +6,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native'; // Th�
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const API_BASE_URL = 'http://10.101.38.213:5000'; // <-- Kiểm tra IP/URL
+const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- Kiểm tra IP/URL
 
 // --- Hàm format tiền tệ ---
 const formatCurrency = (amount) => {

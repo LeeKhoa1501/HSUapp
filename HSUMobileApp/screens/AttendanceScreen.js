@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'; // Đảm bảo h
 import { FontAwesome5 } from '@expo/vector-icons'; // Để dùng icon (đảm bảo đã cài)
 import { Picker } from '@react-native-picker/picker'; // <-- Import Picker cho Modal (Đảm bảo đã cài)
 
-const API_BASE_URL = 'http://10.101.38.213:5000'; // <-- Kiểm tra IP/URL Backend
+const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- Kiểm tra IP/URL Backend
 const screenWidth = Dimensions.get('window').width; // Lấy chiều rộng màn hình
 
 // --- Component con: Hiển thị một MÔN HỌC trong danh sách tổng hợp ---

@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import axios from 'axios'; 
 
-const BASE_URL = 'http://10.101.38.213:5000';
+const BASE_URL = 'http://10.101.39.47:5000';
 
 // Component hiển thị một môn học trong danh sách
 const CourseItem = React.memo(({ item, onPress }) => (

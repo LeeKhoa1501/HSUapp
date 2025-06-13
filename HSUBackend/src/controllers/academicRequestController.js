@@ -43,14 +43,30 @@ const getMyAcademicRequests = asyncHandler(async (req, res) => {
 // @desc    Lấy chi tiết một yêu cầu học vụ bằng ID
 const getAcademicRequestById = asyncHandler(async (req, res) => {
     const requestId = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(requestId)) { res.status(400); throw new Error('ID yêu cầu không hợp lệ.'); }
+
+    if (!mongoose.Types.ObjectId.isValid(requestId)) {
+        res.status(400);
+        throw new Error('ID yêu cầu không hợp lệ.');
+    }
+
+    // Tìm request bằng ID
     const academicRequest = await AcademicRequest.findById(requestId)
         .populate({ path: 'userId', select: 'studentId fullName email studentClass major', model: 'users' })
         .populate({ path: 'receivingCampusId', select: 'name address building', model: 'Location' })
         .populate({ path: 'processedBy', select: 'fullName', model: 'users' });
-    if (!academicRequest) { res.status(404); throw new Error('Không tìm thấy yêu cầu học vụ.'); }
-    if (academicRequest.userId._id.toString() !== req.user._id.toString()) { res.status(403); throw new Error('Bạn không có quyền xem yêu cầu này.'); }
-    res.json({ success: true, data: academicRequest });
+
+    if (!academicRequest) {
+        res.status(404); // Not Found
+        throw new Error('Không tìm thấy yêu cầu học vụ.');
+    }
+
+    // Kiểm tra quyền: Sinh viên chỉ được xem yêu cầu của chính mình
+    if (academicRequest.userId._id.toString() !== req.user._id.toString() /* && req.user.role !== 'admin' */) {
+        res.status(403); // Forbidden
+        throw new Error('Bạn không có quyền xem yêu cầu này.');
+    }
+
+    res.json({ success: true, data: academicRequest }); 
 });
 
 // @desc    Sinh viên hủy một yêu cầu học vụ (nếu đang Pending)

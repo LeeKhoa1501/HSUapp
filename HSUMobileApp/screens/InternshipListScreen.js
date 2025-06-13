@@ -8,7 +8,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { format, parseISO } from 'date-fns';
 import vi from 'date-fns/locale/vi';
 
-const BASE_URL = 'http://10.101.38.213:5000'; // <<< ANH NHỚ THAY IP VÀ PORT ĐÚNG >>>
+const BASE_URL = 'http://10.101.39.47:5000'; // <<< ANH NHỚ THAY IP VÀ PORT ĐÚNG >>>
 
 const getInternshipTypeLabel = (value) => {
     const types = { 'nhan_thuc': 'TT. Nhận thức', 'kien_tap': 'Kiến tập', 'tot_nghiep': 'TT. Tốt nghiệp', 'du_an_doanh_nghiep': 'D.án Doanh nghiệp', 'other': 'Khác' };
@@ -72,7 +72,7 @@ const InternshipListScreen = () => {
 
     useEffect(() => { isMountedRef.current = true; return () => { isMountedRef.current = false; }; }, []);
 
-    const fetchMyInternshipRequests = useCallback(async (isRefreshing = false) => { /* ... (Giữ nguyên code fetchMyInternshipRequests) ... */
+    const fetchMyInternshipRequests = useCallback(async (isRefreshing = false) => { 
         if (!isMountedRef.current) return;
         if (!isRefreshing) setIsLoading(true); setError(null);
         let token;

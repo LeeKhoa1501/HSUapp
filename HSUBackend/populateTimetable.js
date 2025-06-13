@@ -1,4 +1,4 @@
-// populateTimetable.js (Phiên bản cuối cùng, dùng courseId+date, log lỗi insert)
+// populateTimetable.js (dùng courseId+date, log lỗi insert)
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
@@ -21,7 +21,7 @@ const User = require('./src/models/User');
 // --- Import Fake Attendance Data ---
 let fakeAttendanceData = [];
 // >>> ĐƯỜNG DẪN ĐẾN FILE JSON (DÙNG courseId + date) <<<
-const fakeAttendancePath = '../HSUMobileApp/assets/data/fakeAttendance.json'; // Để cùng cấp với script này
+const fakeAttendancePath = '../HSUMobileApp/assets/data/fakeAttendance.json'; 
 try {
     const resolvedPath = path.resolve(__dirname, fakeAttendancePath); console.log(`[DATA] Attempting to load fake attendance data from: ${resolvedPath}`);
     if (fs.existsSync(resolvedPath)) { fakeAttendanceData = require(fakeAttendancePath); if (!Array.isArray(fakeAttendanceData)) { console.warn(`[DATA] Warning: Content is not a valid JSON array.`); fakeAttendanceData = []; } else { console.log(`[DATA] Successfully loaded ${fakeAttendanceData.length} records.`); } }
@@ -106,7 +106,7 @@ const populateTimetableData = async () => {
                          let attendanceStatus; const dateOnly = new Date(dateString + 'T00:00:00Z'); const todayOnly = new Date(today.toISOString().split('T')[0] + 'T00:00:00Z');
                          if (dateOnly <= todayOnly) { attendanceStatus = 'Present'; } else { attendanceStatus = 'NotYet'; }
                          const timeRegex = /^\d{2}:\d{2}$/; if (!timeRegex.test(courseData.startTime) || !timeRegex.test(courseData.endTime)) { console.warn(`   [PHASE 1][WARN] Invalid time format. Skipping entry. Course: ${courseData.courseId}, Date: ${dateString}`); currentDate.setUTCDate(currentDate.getUTCDate() + 1); continue; }
-                         timetableEntriesToInsert.push({ userId: userObjectId, courseId: courseObjectId, date: dateString, dayOfWeek: courseData.dayOfWeek, startTime: courseData.startTime, endTime: courseData.endTime, room: courseData.room, instructor: courseData.instructor, semester: semesterData.semester, academicYear: semesterData.academicYear, attendanceStatus: attendanceStatus, attendanceNotes: null, isAttendanceOpen: false });
+                         timetableEntriesToInsert.push({ userId: userObjectId, courseId: courseObjectId, date: dateString, dayOfWeek: courseData.dayOfWeek, startTime: courseData.startTime, endTime: courseData.endTime, room: courseData.room, instructor: courseData.instructor, semester: semesterData.semester, academicYear: semesterData.academicYear, attendanceStatus: attendanceStatus, attendanceNotes: null, isAttendanceOpen: true });
                      }
                      currentDate.setUTCDate(currentDate.getUTCDate() + 1);
                  }

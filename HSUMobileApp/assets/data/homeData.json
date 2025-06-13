@@ -1,6 +1,6 @@
 {
   "functions": [
-    { "id": 1, "name": "Chuyên cần", "icon": "running", "type": "fas", "screenName": "ChuyenCan" },
+    { "id": 1, "name": "Chuyên cần", "icon": "running", "type": "fas", "screenName": "ChuyenCan" }, 
     { "id": 2, "name": "Đánh giá môn học", "icon": "chart-bar", "type": "fas", "screenName": "EvaluationList" },
     { "id": 3, "name": "Đặt phòng", "icon": "building", "type": "fas", "screenName": "Booking" },
     { "id": 4, "name": "Điểm", "icon": "clipboard-check", "type": "fas", "screenName": "Grades" },

@@ -12,7 +12,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 // import axios from 'axios'; // Bỏ nếu dùng fetch
 
 // <<< ĐỊNH NGHĨA BASE_URL TRỰC TIẾP >>>
-const BASE_URL = 'http://10.101.38.213:5000'; // <<< THAY ĐỊA CHỈ IP VÀ PORT ĐÚNG >>>
+const BASE_URL = 'http://10.101.39.47:5000'; // <<< THAY ĐỊA CHỈ IP VÀ PORT ĐÚNG >>>
 
 // --- Component hiển thị một môn trong kế hoạch ---
 const PlannedCourseItem = React.memo(({ item, onRemove, onMove }) => (

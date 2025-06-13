@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 // !!! KIỂM TRA LẠI IP NÀY !!!
-const API_BASE_URL = 'http://10.101.38.213:5000';
+const API_BASE_URL = 'http://10.101.39.47:5000';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');

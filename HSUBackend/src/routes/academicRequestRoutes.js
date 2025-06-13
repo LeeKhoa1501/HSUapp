@@ -18,7 +18,6 @@ router.route('/my').get(getMyAcademicRequests); // <<<< ROUTE NÀY PHẢI ĐƯ�
 
 router.route('/')
     .post(createAcademicRequest)
-    // .get(getMyAcademicRequests); // KHÔNG NÊN ĐẶT getMyAcademicRequests ở đây nữa nếu đã có /my
 
 router.route('/:id') // Route này sẽ bắt các giá trị động sau /api/academic-requests/
     .get(getAcademicRequestById);

@@ -94,7 +94,7 @@ const ModalPicker = React.memo(({ label, options = [], selectedValue, onValueCha
 
 
 // --- API BASE URL ---
-const API_BASE_URL = 'http://10.101.38.213:5000'; // <<< Đảm bảo đúng IP Backend
+const API_BASE_URL = 'http://10.101.39.47:5000'; // <<< Đảm bảo đúng IP Backend
 
 // --- Component Chính: BookingScreen ---
 const BookingScreen = () => {

@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 // Bỏ import Picker nếu không dùng nữa
 
-const API_BASE_URL = 'http://10.101.38.213:5000'; // <-- Kiểm tra IP/URL
+const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- Kiểm tra IP/URL
 const screenWidth = Dimensions.get('window').width;
 
 // --- Component hiển thị ô Tổng quan ---
