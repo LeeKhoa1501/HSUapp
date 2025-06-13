@@ -7,8 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { format, parseISO } from 'date-fns';
 import vi from 'date-fns/locale/vi';
+import { API_BASE_URL } from '@env';
 
-const BASE_URL = 'http://10.101.39.47:5000'; // <<< ANH NHỚ THAY IP VÀ PORT ĐÚNG >>>
+const BASE_URL = API_BASE_URL;// <<< ANH NHỚ THAY IP VÀ PORT ĐÚNG >>>
 
 const getInternshipTypeLabel = (value) => {
     const types = { 'nhan_thuc': 'TT. Nhận thức', 'kien_tap': 'Kiến tập', 'tot_nghiep': 'TT. Tốt nghiệp', 'du_an_doanh_nghiep': 'D.án Doanh nghiệp', 'other': 'Khác' };

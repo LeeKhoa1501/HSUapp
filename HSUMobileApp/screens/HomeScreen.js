@@ -10,6 +10,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { format, parseISO } from 'date-fns';
 import vi from 'date-fns/locale/vi';
+import { API_BASE_URL } from '@env';
 
 // --- ASSETS & DATA ---
 import homeData from '../assets/data/homeData.json'; // Đảm bảo đường dẫn này đúng
@@ -20,7 +21,7 @@ import FavoriteFunctions from './components/FavoriteFunctions';
 import TodayTimetableCard from './components/TodayTimetableCard';
 
 // --- CONSTANTS & CONFIG ---
-const BASE_URL = 'http://10.101.39.47:5000'; // URL Backend Server (Khoa thay bằng IP và Port đúng)
+const BASE_URL = API_BASE_URL; // URL Backend Server (Khoa thay bằng IP và Port đúng)
 const screenWidth = Dimensions.get('window').width;
 
 // Tính toán kích thước cho các item trong nhóm chức năng (ví dụ: "Thông tin học vụ")

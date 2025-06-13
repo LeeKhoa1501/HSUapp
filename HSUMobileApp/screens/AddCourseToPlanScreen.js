@@ -3,12 +3,13 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, TextInput, Keyboard, Platform } from 'react-native'; // Thêm Platform
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { API_BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 // import { CheckBox } from '@rneui/themed'; // <<< KHÔNG DÙNG >>>
 
 // <<< ĐỊNH NGHĨA BASE_URL TRỰC TIẾP >>>
-const BASE_URL = 'http://10.101.39.47:5000'; // <<< THAY IP ĐÚNG >>>
+const BASE_URL = API_BASE_URL; // <<< THAY IP ĐÚNG >>>
 
 // --- Component Custom Checkbox ---
 const CustomCheckbox = ({ isChecked, onPress }) => (

@@ -10,9 +10,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { format, parseISO } from 'date-fns';
 import vi from 'date-fns/locale/vi';
+import { API_BASE_URL } from '@env';
 
 // ANH NHỚ THAY BẰNG IP VÀ PORT ĐÚNG CỦA BACKEND SERVER
-const BASE_URL = 'http://10.101.39.47:5000';
+const BASE_URL = API_BASE_URL;
 
 // Hàm format số tiền cho đẹp
 const formatCurrency = (amount) => {

@@ -4,10 +4,11 @@ import {View, Text, FlatList, StyleSheet, ActivityIndicator, RefreshControl, Ale
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Để lấy/lưu token
 import { useFocusEffect, useNavigation } from '@react-navigation/native'; // Hooks điều hướng và focus
 import { SafeAreaView } from 'react-native-safe-area-context'; // Đảm bảo hiển thị đúng
+import { API_BASE_URL } from '@env';
 import { FontAwesome5 } from '@expo/vector-icons'; // Để dùng icon (đảm bảo đã cài)
 import { Picker } from '@react-native-picker/picker'; // <-- Import Picker cho Modal (Đảm bảo đã cài)
 
-const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- Kiểm tra IP/URL Backend
+const BASE_URL = API_BASE_URL; // <-- Kiểm tra IP/URL Backend
 const screenWidth = Dimensions.get('window').width; // Lấy chiều rộng màn hình
 
 // --- Component con: Hiển thị một MÔN HỌC trong danh sách tổng hợp ---

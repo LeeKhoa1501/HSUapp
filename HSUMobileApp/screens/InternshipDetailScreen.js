@@ -10,9 +10,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { format, parseISO } from 'date-fns';
 import vi from 'date-fns/locale/vi';
+import { API_BASE_URL } from '@env';
 
 // --- CONFIGURATION ---
-const BASE_URL = 'http://10.101.39.47:5000'; // <<< THAY IP VÀ PORT ĐÚNG >>>
+const BASE_URL = API_BASE_URL;// <<< THAY IP VÀ PORT ĐÚNG >>>
 
 // --- HELPER FUNCTIONS ---
 const formatDateDisplay = (dateString) => {

@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview'; // Import WebView
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { API_BASE_URL } from '@env';
 
 const HANDBOOK_URL = 'https://www.hoasen.edu.vn/so-tay-sinh-vien/';
 

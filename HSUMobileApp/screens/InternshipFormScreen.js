@@ -6,8 +6,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { API_BASE_URL } from '@env';
 
-const BASE_URL = 'http://10.101.39.47:5000'; // <<< ANH NHỚ THAY IP VÀ PORT ĐÚNG >>>
+const BASE_URL = API_BASE_URL; // <<< ANH NHỚ THAY IP VÀ PORT ĐÚNG >>>
 
 const INTERNSHIP_TYPES = [
     { label: "Thực tập Tốt nghiệp", value: "tot_nghiep" },

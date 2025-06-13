@@ -5,11 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider as PaperProvider } from 'react-native-paper'; // PaperProvider cần nếu dùng component Paper khác
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { API_BASE_URL } from '@env';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'; // Có thể dùng nếu muốn
 
 // <<< THAY BẰNG BASE URL CỦA ANH >>>
-const BASE_URL = 'http://10.101.39.47:5000'; // Hoặc lấy từ file config
+const BASE_URL = API_BASE_URL; // Hoặc lấy từ file config
 
 // --- Component Rating Question ---
 const RatingQuestion = React.memo(({ question, ratingValue, onRatingChange }) => (

@@ -6,7 +6,8 @@ import { Picker } from '@react-native-picker/picker';                           
 import AsyncStorage from '@react-native-async-storage/async-storage';                           // Cần cài: expo install @react-native-async-storage/async-storage
 import DateTimePicker from '@react-native-community/datetimepicker';                           // Cần cài: expo install @react-native-community/datetimepicker
 import { SafeAreaView } from 'react-native-safe-area-context';                               // Cần cài: expo install react-native-safe-area-context
-import { FontAwesome5 } from '@expo/vector-icons';                                           // Expo đã có sẵn hoặc expo install @expo/vector-icons
+import { FontAwesome5 } from '@expo/vector-icons';    
+import { API_BASE_URL } from '@env';                                       // Expo đã có sẵn hoặc expo install @expo/vector-icons
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 // --- Component con: LabeledInput ---
@@ -94,7 +95,7 @@ const ModalPicker = React.memo(({ label, options = [], selectedValue, onValueCha
 
 
 // --- API BASE URL ---
-const API_BASE_URL = 'http://10.101.39.47:5000'; // <<< Đảm bảo đúng IP Backend
+const BASE_URL = API_BASE_URL; // <<< Đảm bảo đúng IP Backend
 
 // --- Component Chính: BookingScreen ---
 const BookingScreen = () => {

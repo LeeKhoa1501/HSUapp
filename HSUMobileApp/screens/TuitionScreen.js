@@ -5,8 +5,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useNavigation } from '@react-navigation/native'; // Thêm lại useFocusEffect nếu cần
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { API_BASE_URL } from '@env';
 
-const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- Kiểm tra IP/URL
+const BASE_URL = API_BASE_URL; // <-- Kiểm tra IP/URL
 
 // --- Hàm format tiền tệ ---
 const formatCurrency = (amount) => {

@@ -4,13 +4,14 @@ import {
     View, Text, FlatList, StyleSheet, ActivityIndicator,
     RefreshControl, Alert, TouchableOpacity
 } from 'react-native';
+import { API_BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 // --- API URL (Giống màn hình AttendanceScreen) ---
-const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- IP Backend
+const BASE_URL = API_BASE_URL; // <-- IP Backend
 
 // --- Component con: Hiển thị một môn học có vấn đề ---
 const ProblematicCourseItem = React.memo(({ item }) => {
@@ -18,7 +19,7 @@ const ProblematicCourseItem = React.memo(({ item }) => {
     const isAbsentWarning = (item?.absentCount ?? 0) >= 2; // Vắng >= 2 buổi
     const isLateWarning = (item?.lateCount ?? 0) >= 3; // Trễ >= 3 buổi
     const warningLevel = isAbsentWarning ? 'high' : (isLateWarning ? 'medium' : 'low'); // Chỉ cần có vắng/trễ là low
-
+r
     return (
         <View style={[styles.itemCard,
             warningLevel === 'high' ? styles.cardWarningHigh : (warningLevel === 'medium' ? styles.cardWarningMedium : styles.cardWarningLow)

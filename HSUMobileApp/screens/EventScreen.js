@@ -6,12 +6,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { API_BASE_URL } from '@env';
 import { useNavigation } from '@react-navigation/native';
 import { format, parseISO } from 'date-fns'; // Import parseISO để xử lý chuỗi ngày từ server
 import vi from 'date-fns/locale/vi';     // Tiếng Việt cho date-fns
 
 //  IP VÀ PORT ĐÚNG CỦA BACKEND, HOẶC IMPORT TỪ CONFIG FILE
-const BASE_URL = 'http://10.101.39.47:5000';
+const BASE_URL = API_BASE_URL;
 
 const EventScreen = () => {
     const navigation = useNavigation();

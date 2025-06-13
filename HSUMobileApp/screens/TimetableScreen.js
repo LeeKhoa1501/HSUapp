@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { API_BASE_URL } from '@env';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
 // --- Cấu hình Tiếng Việt ---
@@ -12,7 +13,7 @@ LocaleConfig.locales['vi'] = { monthNames: ['Tháng 1','Tháng 2','Tháng 3','Th
 LocaleConfig.defaultLocale = 'vi';
 
 // --- API BASE URL ---
-const API_BASE_URL = 'http://10.101.39.47:5000'; // <-- Sửa lại IP/URL backend đúng
+const BASE_URL = API_BASE_URL;// <-- Sửa lại IP/URL backend đúng
 
 // --- Lấy ngày hôm nay ---
 const getTodayDateString = () => new Date().toISOString().split('T')[0];
