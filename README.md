@@ -1,2 +1,22 @@
 # HSUMobileApp
-An simple Hoa Sen University App REACT NATIVE & NODEJS
+### 2. Setup the FrontEnd (HSUMobileApp)
+
+#### a. Create a .env file in HSUMobileApp/ with the following content:
+mobile app 
+├── assets/ 
+├── screens/ 
+├── .env 
+└── ...
+```sh
+API_BASE_URL=http://<your-ip>:5000
+```
+Windows: Run ipconfig in Command Prompt, look for IPv4 Address.
+Mac/Linux: Run ifconfig, look for inet under your active network adapter.
+
+#### b. Install dependencies and run frontend server:
+
+```sh
+cd ./HSUMobileApp
+npm install
+npx expo start // run Frontend
+```

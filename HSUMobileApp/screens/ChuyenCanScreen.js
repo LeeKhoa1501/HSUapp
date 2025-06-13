@@ -19,7 +19,6 @@ const ProblematicCourseItem = React.memo(({ item }) => {
     const isAbsentWarning = (item?.absentCount ?? 0) >= 2; // Vắng >= 2 buổi
     const isLateWarning = (item?.lateCount ?? 0) >= 3; // Trễ >= 3 buổi
     const warningLevel = isAbsentWarning ? 'high' : (isLateWarning ? 'medium' : 'low'); // Chỉ cần có vắng/trễ là low
-r
     return (
         <View style={[styles.itemCard,
             warningLevel === 'high' ? styles.cardWarningHigh : (warningLevel === 'medium' ? styles.cardWarningMedium : styles.cardWarningLow)
