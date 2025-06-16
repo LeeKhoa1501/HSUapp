@@ -2,12 +2,7 @@
 ### 2. Setup the FrontEnd (HSUMobileApp)
 
 #### a. Create a .env file in HSUMobileApp/ with the following content:
-mobile app 
-├── assets/ 
-├── screens/ 
-├── .env 
-└── ...
-```sh
+
 API_BASE_URL=http://<your-ip>:5000
 ```
 Windows: Run ipconfig in Command Prompt, look for IPv4 Address.
@@ -20,3 +15,6 @@ cd ./HSUMobileApp
 npm install
 npx expo start // run Frontend
 ```
+Tài Khoản và Mật Khẩu đăng nhập 
+khoa.lm04822@hsu.edu.vn
+123456
