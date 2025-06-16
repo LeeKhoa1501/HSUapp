@@ -33,6 +33,8 @@ require('./models/AcademicRequest');
 require('./models/Event');
 require('./models/PhotoAccount');
 require('./models/PhotoTransaction');
+require('./models/Notification'); 
+
 // ... require TẤT CẢ các model khác mà anh có trong thư mục ./models/ ...
 console.log('[Server Init] All Mongoose Models should be registered.');
 
@@ -65,7 +67,8 @@ const academicRequestRoutes = require('./routes/academicRequestRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const photoAccountRoutes = require('./routes/photoAccountRoutes');
-const internshipRoutes = require('./routes/internshipRoutes'); // Route này cần các model đã đăng ký ở trên
+const internshipRoutes = require('./routes/internshipRoutes'); 
+const notificationRoutes = require('./routes/notificationRoutes'); // Nếu cần dùng thông báo
 console.log('[Server Init] Routes imported.');
 
 // --- 6. MOUNT ROUTES ---
@@ -87,6 +90,7 @@ app.use('/api/companies', companyRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/photo-account', photoAccountRoutes);
 app.use('/api/internships', internshipRoutes);
+app.use('/api/notifications', notificationRoutes); 
 console.log('[Server Init] Routes mounted.');
 
 // Test route

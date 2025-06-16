@@ -1,0 +1,29 @@
+[
+  {
+    "recipientId": "67f8d41c5e62d05207534b7f", 
+    "title": "Thông báo thực hiện khảo sát sinh viên ở HK2, NH 2024-2025",
+    "shortDescription": "SV vui lòng hoàn thành Khảo sát cuối môn học và Khảo sát giảng viên phụ trách lớp ngành trên trang HTTPTSV hoặc App...",
+    "fullContent": "Nội dung đầy đủ của thông báo khảo sát sinh viên  ",
+    "type": "survey",
+    "isRead": false,
+    "createdAt": "2025-06-13T03:00:00.000Z" 
+  },
+  {
+    "recipientId": "67f8d41c5e62d05207534b7f", 
+    "title": "ĐĂNG KÝ TRỞ THÀNH CHIẾN SĨ MÙA HÈ XANH 2025",
+    "shortDescription": "Mỗi vùng đất bạn đặt chân đến, từng hành động bạn cống hiến, mỗi người bạn gặp được đều là một phần kỷ niệm...",
+    "fullContent": "Mỗi vùng đất bạn đặt chân đến, từng hành động bạn cống hiến, mỗi người bạn gặp được đều là một phần kỷ niệm mà bạn sẽ nhớ mãi. Mùa hè này - Cùng nhau lên đường - Viết nên hành trình thanh xuân của bạn.",
+    "type": "event",
+    "isRead": false,
+    "createdAt": "2025-06-12T02:00:00.000Z"
+  },
+  {
+    "recipientId": "67f8d41c5e62d05207534b7f", 
+    "title": "Thông báo Lịch nghỉ lễ Giỗ Tổ Hùng Vương",
+    "shortDescription": "Toàn thể sinh viên được nghỉ lễ Giỗ Tổ Hùng Vương vào ngày...",
+    "fullContent": "Chi tiết thông báo nghỉ lễ Giỗ Tổ Hùng Vương. Sinh viên chú ý theo dõi lịch học bù (nếu có) từ các Khoa.",
+    "type": "academic",
+    "isRead": false,
+    "createdAt": "2025-04-15T09:30:00.000Z"
+  }
+]
