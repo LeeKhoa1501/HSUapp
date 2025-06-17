@@ -160,17 +160,17 @@ const AccountSettingsScreen = () => {
                     <Text style={styles.menuSectionTitle}>HỖ TRỢ</Text>
                     <MenuItem icon="phone-alt" text="Liên hệ" onPress={() => Linking.openURL('tel:18001577')} />
                     <View style={styles.menuSeparator} />
-                    <MenuItem icon="video" text="Video Hướng dẫn" onPress={() => Alert.alert("Thông báo","Xem video trên kênh YouTube của HSU.")} />
+                    <MenuItem icon="video" text="Video Hướng dẫn" onPress={() => { Linking.openURL('https://www.youtube.com/@hoasenuni')}} />
                 </View>
 
                 {/* --- Menu Section: Ứng dụng --- */}
                 <View style={styles.menuSection}>
                     <Text style={styles.menuSectionTitle}>ỨNG DỤNG</Text>
                     <MenuItem icon="cog" text="Cài đặt chung" onPress={() => handleNavigateTo('GeneralSettingsScreen')} />
-                    {/* <View style={styles.menuSeparator} />
+                    <View style={styles.menuSeparator} />
                     <MenuItem icon="shield-alt" text="Bảo mật & Quyền riêng tư" onPress={() => handleNavigateTo('SecuritySettingsScreen')} />
                     <View style={styles.menuSeparator} />
-                    <MenuItem icon="bell" text="Thông báo" onPress={() => handleNavigateTo('NotificationSettingsScreen')} /> */}
+                    <MenuItem icon="bell" text="Thông báo" onPress={() => handleNavigateTo('NotificationSettingsScreen')} />
                 </View>
 
                 {/* --- Logout Button --- */}
@@ -179,7 +179,7 @@ const AccountSettingsScreen = () => {
                 </View>
 
                 {/* --- App Version --- */}
-                <Text style={styles.appVersion}>Phiên bản 4.0.0 (HSUAPPNEW)</Text>
+                <Text style={styles.appVersion}>Phiên bản 4.0.0 (HSUAPP)</Text>
 
             </ScrollView>
         </SafeAreaView>
@@ -196,12 +196,14 @@ const styles = StyleSheet.create({
     // User Info Header
     userInfoHeader: {
         backgroundColor: '#0056b3', // Màu xanh HSU đậm
-        paddingTop: Platform.OS === 'android' ? 30 : 20,
-        paddingBottom: 20,
+        paddingTop: Platform.OS === 'android' ? 25:15,
+        paddingBottom: 45,
         alignItems: 'center',
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        marginBottom: 20,
+        borderTopRightRadius:20,
+        borderTopLeftRadius:20,
+        shadowColor: '#000',
+        marginHorizontal: 16,
+        marginTop: 20,
     },
     avatar: {
         width: 90,
