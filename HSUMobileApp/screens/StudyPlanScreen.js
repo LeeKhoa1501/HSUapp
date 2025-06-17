@@ -141,21 +141,53 @@ const StudyPlanScreen = () => {
     const handleOpenMoveModal = useCallback((course, fromSection) => { setMovingCourseInfo({ course, fromSection }); setIsMoveModalVisible(true); }, []);
      // --- Xác nhận Chuyển môn ---
      const handleConfirmMove = useCallback((targetSemesterCode) => {
-         if (!movingCourseInfo || targetSemesterCode === null) { setIsMoveModalVisible(false); return; }
-         const { course, fromSection } = movingCourseInfo; const courseIdToMove = course.courseId?._id ?? course.courseId; const courseDataToMove = { courseId: courseIdToMove };
-         if (!courseIdToMove) { console.error("[StudyPlan] Move Error: Invalid courseId."); setIsMoveModalVisible(false); setMovingCourseInfo(null); return; }
-         setStudyPlan(prevPlan => {
-             let newPlannedSemesters = prevPlan.plannedSemesters.map(sem => ({ ...sem, courses: sem.courses.filter(c => (c.courseId?._id ?? c.courseId) !== courseIdToMove) }));
-             let newUnsortedCourses = prevPlan.unsortedCourses.filter(c => (c.courseId?._id ?? c.courseId) !== courseIdToMove);
-             if (targetSemesterCode === 'unsorted') { if (!newUnsortedCourses.some(c => (c.courseId?._id ?? c.courseId) === courseIdToMove)) newUnsortedCourses.push(courseDataToMove); }
-             else { let found = false; newPlannedSemesters = newPlannedSemesters.map(sem => { if (sem.semesterCode === targetSemesterCode) { found = true; if (!sem.courses.some(c => (c.courseId?._id ?? c.courseId) === courseIdToMove)) return { ...sem, courses: [...sem.courses, courseDataToMove] }; } return sem; });
-                 if (!found) { console.warn(`Target semester ${targetSemesterCode} not found, adding to unsorted`); if (!newUnsortedCourses.some(c => (c.courseId?._id ?? c.courseId) === courseIdToMove)) newUnsortedCourses.push(courseDataToMove); }
-             }
-             newPlannedSemesters.sort((a, b) => (a.semesterCode || '').localeCompare(b.semesterCode || ''));
-             return { plannedSemesters: newPlannedSemesters, unsortedCourses: newUnsortedCourses };
-         });
-         setIsMoveModalVisible(false); setMovingCourseInfo(null); setIsDirty(true);
-     }, [movingCourseInfo]);
+        if (!movingCourseInfo || targetSemesterCode === null) { setIsMoveModalVisible(false); return; }
+        const { course, fromSection } = movingCourseInfo;
+        const courseIdToMove = course.courseId?._id ?? course.courseId;
+        const courseDataToMove = { courseId: courseIdToMove };
+        if (!courseIdToMove) { console.error("[StudyPlan] Move Error: Invalid courseId."); setIsMoveModalVisible(false); setMovingCourseInfo(null); return; }
+        setStudyPlan(prevPlan => {
+            let newPlannedSemesters = prevPlan.plannedSemesters.map(sem => ({ ...sem, courses: sem.courses.filter(c => (c.courseId?._id ?? c.courseId) !== courseIdToMove) }));
+            let newUnsortedCourses = prevPlan.unsortedCourses.filter(c => (c.courseId?._id ?? c.courseId) !== courseIdToMove);
+            if (targetSemesterCode === 'unsorted') {
+                if (!newUnsortedCourses.some(c => (c.courseId?._id ?? c.courseId) === courseIdToMove)) newUnsortedCourses.push(courseDataToMove);
+            } else {
+                let found = false;
+                newPlannedSemesters = newPlannedSemesters.map(sem => {
+                    if (sem.semesterCode === targetSemesterCode) {
+                        found = true;
+                        if (!sem.courses.some(c => (c.courseId?._id ?? c.courseId) === courseIdToMove))
+                            return { ...sem, courses: [...sem.courses, courseDataToMove] };
+                    }
+                    return sem;
+                });
+                if (!found) {
+                    // Nếu chưa có học kỳ này, tạo mới object học kỳ
+                    // Suy luận tên kỳ và năm học từ mã kỳ
+                    let semName = 'Kỳ';
+                    let year = 2024;
+                    if (targetSemesterCode.length >= 3) {
+                        const yearPart = targetSemesterCode.substring(0,2);
+                        const semPart = targetSemesterCode.substring(2);
+                        year = 2000 + parseInt(yearPart, 10);
+                        if (semPart === '1') semName = 'Học kỳ 1';
+                        else if (semPart === '2') semName = 'Học kỳ 2';
+                        else if (semPart === '3') semName = 'Học kỳ Hè';
+                        else if (semPart === '4') semName = 'Học kỳ Tết';
+                    }
+                    newPlannedSemesters.push({
+                        semesterCode: targetSemesterCode,
+                        semesterName: semName,
+                        academicYear: `${year}-${year+1}`,
+                        courses: [courseDataToMove]
+                    });
+                }
+            }
+            newPlannedSemesters.sort((a, b) => (a.semesterCode || '').localeCompare(b.semesterCode || ''));
+            return { plannedSemesters: newPlannedSemesters, unsortedCourses: newUnsortedCourses };
+        });
+        setIsMoveModalVisible(false); setMovingCourseInfo(null); setIsDirty(true);
+    }, [movingCourseInfo]);
     // --- Lưu Kế hoạch ---
     const handleSaveChanges = async () => {
          if (!isDirty) { Alert.alert("Thông báo", "Không có thay đổi để lưu."); return; }
@@ -179,7 +211,28 @@ const StudyPlanScreen = () => {
         return [...plannedData, ...unsortedData];
     }, [studyPlan]);
     // --- Lấy danh sách mã kỳ cho Modal ---
-    const allSemesterCodes = useMemo(() => ['unsorted', ...(studyPlan.plannedSemesters || []).map(s => s.semesterCode).filter(Boolean)], [studyPlan.plannedSemesters]);
+    const allSemesterCodes = useMemo(() => {
+        // Lấy tất cả mã kỳ từ kế hoạch hiện tại
+        const codes = (studyPlan.plannedSemesters || []).map(s => s.semesterCode).filter(Boolean);
+        // Thêm các mã kỳ phụ nếu chưa có
+        const extraCodes = ['unsorted'];
+        // Tìm năm học gần nhất (nếu có)
+        let latestYearPrefix = '24'; // Mặc định năm gần nhất
+        if (codes.length > 0) {
+            // Lấy năm lớn nhất trong các mã kỳ
+            const yearCodes = codes.map(c => c?.substring(0,2)).filter(Boolean);
+            if (yearCodes.length > 0) {
+                latestYearPrefix = yearCodes.sort().reverse()[0];
+            }
+        }
+        // Mã học kỳ Tết và Hè theo chuẩn mã kỳ (ví dụ: 241, 242, 243, 244)
+        const tetCode = latestYearPrefix + '4';
+        const heCode = latestYearPrefix + '3';
+        // Nếu chưa có thì thêm vào
+        if (!codes.includes(tetCode)) codes.push(tetCode);
+        if (!codes.includes(heCode)) codes.push(heCode);
+        return [...extraCodes, ...codes];
+    }, [studyPlan.plannedSemesters]);
 
     // --- Render ---
     if (isLoading) return <SafeAreaView style={styles.safeArea}><View style={styles.centeredMessage}><ActivityIndicator size="large" color="#003366" /></View></SafeAreaView>;

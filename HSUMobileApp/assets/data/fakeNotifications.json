@@ -1,29 +1,47 @@
 [
   {
-    "recipientId": "67f8d41c5e62d05207534b7f", 
-    "title": "Thông báo thực hiện khảo sát sinh viên ở HK2, NH 2024-2025",
-    "shortDescription": "SV vui lòng hoàn thành Khảo sát cuối môn học và Khảo sát giảng viên phụ trách lớp ngành trên trang HTTPTSV hoặc App...",
-    "fullContent": "Nội dung đầy đủ của thông báo khảo sát sinh viên  ",
-    "type": "survey",
-    "isRead": false,
-    "createdAt": "2025-06-13T03:00:00.000Z" 
-  },
-  {
-    "recipientId": "67f8d41c5e62d05207534b7f", 
-    "title": "ĐĂNG KÝ TRỞ THÀNH CHIẾN SĨ MÙA HÈ XANH 2025",
-    "shortDescription": "Mỗi vùng đất bạn đặt chân đến, từng hành động bạn cống hiến, mỗi người bạn gặp được đều là một phần kỷ niệm...",
-    "fullContent": "Mỗi vùng đất bạn đặt chân đến, từng hành động bạn cống hiến, mỗi người bạn gặp được đều là một phần kỷ niệm mà bạn sẽ nhớ mãi. Mùa hè này - Cùng nhau lên đường - Viết nên hành trình thanh xuân của bạn.",
-    "type": "event",
-    "isRead": false,
-    "createdAt": "2025-06-12T02:00:00.000Z"
-  },
-  {
-    "recipientId": "67f8d41c5e62d05207534b7f", 
-    "title": "Thông báo Lịch nghỉ lễ Giỗ Tổ Hùng Vương",
-    "shortDescription": "Toàn thể sinh viên được nghỉ lễ Giỗ Tổ Hùng Vương vào ngày...",
-    "fullContent": "Chi tiết thông báo nghỉ lễ Giỗ Tổ Hùng Vương. Sinh viên chú ý theo dõi lịch học bù (nếu có) từ các Khoa.",
+    "recipientId": "67f8d41c5e62d05207534b7f",
+    "title": "Thông báo V/v Đăng ký Học phần Học kỳ 1 - Năm học 2025-2026",
+    "shortDescription": "Nhà trường thông báo kế hoạch đăng ký học phần cho Học kỳ 1, năm học 2025-2026. Sinh viên vui lòng xem chi tiết...",
+    "fullContent": "Kính gửi Sinh viên,\n\nPhòng Đào tạo thông báo về kế hoạch đăng ký học phần cho Học kỳ 1, năm học 2025-2026 như sau:\n- Thời gian mở đăng ký: Từ 08:00 ngày 15/07/2025 đến 17:00 ngày 25/07/2025.\n- Đối tượng: Sinh viên tất cả các khóa.\n- Hình thức đăng ký: Trực tuyến qua cổng thông tin sinh viên HTTPTSV.\n\nSinh viên vui lòng tham khảo kỹ chương trình đào tạo, các môn tiên quyết và điều kiện đăng ký trước khi thực hiện. Mọi thắc mắc vui lòng liên hệ Phòng Đào tạo (phongdaotao@hoasen.edu.vn) để được hỗ trợ.\n\nTrân trọng.",
     "type": "academic",
     "isRead": false,
-    "createdAt": "2025-04-15T09:30:00.000Z"
+    "createdAt": "2025-07-10T09:00:00.000Z"
+  },
+  {
+    "recipientId": "67f8d41c5e62d05207534b7f",
+    "title": "Nhắc nhở hoàn thành Khảo sát Mức độ hài lòng của Người học",
+    "shortDescription": "Phòng Đảm bảo Chất lượng kính mời sinh viên tham gia Khảo sát Mức độ hài lòng về các hoạt động và dịch vụ của Nhà trường...",
+    "fullContent": "Thân gửi các bạn Sinh viên,\n\nNhằm nâng cao chất lượng đào tạo và các dịch vụ hỗ trợ, Phòng Đảm bảo Chất lượng rất mong nhận được những ý kiến đóng góp quý báu của các bạn thông qua việc hoàn thành \"Khảo sát Mức độ hài lòng của Người học năm học 2024-2025\".\n\nThời gian thực hiện khảo sát: Đến hết ngày 30/06/2025.\nLink khảo sát: [Link khảo sát thực tế nếu có]\n\nMọi thông tin các bạn cung cấp sẽ được bảo mật và chỉ dùng cho mục đích cải tiến chất lượng. Sự tham gia của các bạn là đóng góp quan trọng cho sự phát triển của Nhà trường.\n\nXin chân thành cảm ơn!",
+    "type": "survey",
+    "isRead": false,
+    "createdAt": "2025-06-20T14:30:00.000Z"
+  },
+  {
+    "recipientId": "67f8d41c5e62d05207534b7f", 
+    "title": "Workshop Kỹ năng Viết CV và Phỏng vấn Chuyên nghiệp",
+    "shortDescription": "Trung tâm Hỗ trợ Sinh viên & Quan hệ Doanh nghiệp tổ chức workshop \"Chinh phục Nhà tuyển dụng\" vào ngày 25/06/2025...",
+    "fullContent": "Các bạn sinh viên thân mến,\n\nCơ hội việc làm đang rộng mở, nhưng làm thế nào để bạn nổi bật và gây ấn tượng với nhà tuyển dụng? Hãy tham gia workshop \"Chinh phục Nhà tuyển dụng: Kỹ năng Viết CV và Phỏng vấn Chuyên nghiệp\" do Trung tâm Hỗ trợ Sinh viên & Quan hệ Doanh nghiệp tổ chức.\n\n- Thời gian: 08:30 - 11:30, Thứ Bảy, ngày 25/06/2025\n- Địa điểm: Hội trường Charlot (CS Nguyễn Văn Tráng)\n- Diễn giả: Chuyên gia nhân sự từ Công ty ABC\n- Nội dung: Cách viết CV thu hút, Mẹo phỏng vấn thành công, Định hướng nghề nghiệp.",
+    "type": "event",
+    "isRead": false,
+    "createdAt": "2025-06-18T11:00:00.000Z"
+  },
+  {
+    "recipientId": "67f8d41c5e62d05207534b7f",
+    "title": "Thông báo đóng học phí Học kỳ Hè năm học 2024-2025",
+    "shortDescription": "Phòng Kế hoạch Tài chính thông báo thời hạn và các hình thức đóng học phí cho Học kỳ Hè năm học 2024-2025...",
+    "fullContent": "THÔNG BÁO\n(V/v đóng học phí Học kỳ Hè, năm học 2024-2025)\n\nPhòng Kế hoạch Tài chính thông báo đến toàn thể sinh viên về việc đóng học phí Học kỳ Hè năm học 2024-2025 như sau:\n1. Thời hạn đóng học phí: Từ ngày 01/07/2025 đến hết ngày 15/07/2025.\n2. Các hình thức đóng học phí:\n   - Trực tiếp tại Phòng Kế hoạch Tài chính các cơ sở.\n   - Chuyển khoản ngân hàng (chi tiết số tài khoản xem tại website trường).\n   - Qua cổng thanh toán trực tuyến trên HTTPTSV.\n\nSinh viên vui lòng hoàn thành nghĩa vụ học phí đúng hạn để đảm bảo quyền lợi học tập. Mọi trường hợp đóng trễ hạn sẽ được xử lý theo quy định của Nhà trường.\n\nTrân trọng.",
+    "type": "academic",
+    "isRead": false,
+    "createdAt": "2025-06-30T16:00:00.000Z"
+  },
+  {
+    "recipientId": "67f8d41c5e62d05207534b7f",
+    "title": "Cập nhật Hệ thống Thư viện: Bảo trì định kỳ",
+    "shortDescription": "Thư viện sẽ tiến hành bảo trì hệ thống từ 22:00 ngày 05/07/2025 đến 06:00 ngày 06/07/2025. Các dịch vụ trực tuyến có thể bị gián đoạn.",
+    "fullContent": "Kính gửi Quý bạn đọc,\n\nĐể nâng cấp và cải thiện chất lượng dịch vụ, Thư viện Trường Đại học Hoa Sen sẽ tiến hành bảo trì hệ thống máy chủ định kỳ.\n\n- Thời gian bảo trì dự kiến: Từ 22:00 ngày 05/07/2025 (Thứ Sáu) đến 06:00 ngày 06/07/2025 (Thứ Bảy).\n\nTrong thời gian này, các dịch vụ trực tuyến của thư viện như tra cứu tài liệu online, gia hạn sách, đặt phòng học nhóm tại thư viện có thể bị gián đoạn hoặc truy cập chậm.\n\nThư viện rất mong nhận được sự thông cảm của Quý bạn đọc vì sự bất tiện này.\n\nTrân trọng thông báo.",
+    "type": "system",
+    "isRead": false,
+    "createdAt": "2025-07-04T10:15:00.000Z"
   }
 ]
