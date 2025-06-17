@@ -1,15 +1,3 @@
-An simple Hoa Sen University App REACT NATIVE & NODEJS
-HSUapp/ 
-│ ├── HSUBackend/ # Node.js Express backend (API server) │ ├── src/ 
-│ ├── .env 
-│ └── ... 
-│ └── HSUMobileApp/ # React Native (Expo) mobile app 
-├── assets/ 
-├── screens/ 
-├── .env 
-└── ...
----
-
 ## 🏗️ Infrastructure & Tech Stack
 
 - **Frontend:** React Native (Expo)
