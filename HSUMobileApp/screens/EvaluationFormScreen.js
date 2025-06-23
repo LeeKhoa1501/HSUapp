@@ -9,8 +9,8 @@ import { API_BASE_URL } from '@env';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'; // Có thể dùng nếu muốn
 
-// <<< THAY BẰNG BASE URL CỦA ANH >>>
-const BASE_URL = API_BASE_URL; // Hoặc lấy từ file config
+
+const BASE_URL = API_BASE_URL; 
 
 // --- Component Rating Question ---
 const RatingQuestion = React.memo(({ question, ratingValue, onRatingChange }) => (
