@@ -8,10 +8,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { API_BASE_URL } from '@env';
 import { format, parseISO } from 'date-fns';
 import vi from 'date-fns/locale/vi';
-// === SỬA TÊN HÀM IMPORT CHO KHỚP VỚI requestTypes.js ===
-import { getRequestTypeLabel } from '../assets/data/requestTypes'; // Đảm bảo đường dẫn này đúng
+import { getRequestTypeLabel } from '../assets/data/requestTypes'; 
 
-const BASE_URL = API_BASE_URL;// <<< THAY IP VÀ PORT ĐÚNG >>>
+const BASE_URL = API_BASE_URL;
 
 // Helper functions
 const formatDateDisplay = (dateString) => { 
@@ -23,7 +22,6 @@ const formatDateDisplay = (dateString) => {
 };
 const getAcademicStatusInfo = (status) => {
     const statusStr = String(status || 'Không rõ').toLowerCase();
-    // (Giữ nguyên switch case của Khoa)
     switch (statusStr) {
         case 'pending': return { text: 'Chờ xử lý', badgeColor: '#fff3cd', textColor: '#856404' };
         case 'processing': return { text: 'Đang xử lý', badgeColor: '#cce5ff', textColor: '#004085' };
@@ -35,12 +33,10 @@ const getAcademicStatusInfo = (status) => {
     }
 };
 
-// Component hiển thị một dòng thông tin (Icon, Label, Value)
 const InfoRowItem = React.memo(({ iconName, label, value, valueStyle, isLink = false, linkPrefix = '' }) => {
     const valueExists = !(value === null || typeof value === 'undefined' || String(value).trim() === '');
     const displayValue = valueExists ? String(value) : 'Chưa cập nhật';
 
-    // Không render nếu cả label và value đều không có ý nghĩa (trừ trạng thái)
     if (!label && !valueExists && String(label || '').toLowerCase() !== 'trạng thái:') {
         return null;
     }
@@ -60,7 +56,6 @@ const InfoRowItem = React.memo(({ iconName, label, value, valueStyle, isLink = f
     );
 });
 
-// Component cho các nút hành động
 const ActionButton = React.memo(({ onPress, text, icon, buttonStyle, textStyle, disabled, isLoading }) => (
     <TouchableOpacity
         style={[styles.actionButton, buttonStyle, disabled && styles.disabledButton]}
@@ -82,20 +77,17 @@ const AcademicRequestDetailScreen = () => {
     const navigation = useNavigation();
     const { requestId } = route.params || {};
 
-    // --- States ---
     const [requestDetail, setRequestDetail] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isActionLoading, setIsActionLoading] = useState(false);
-
-    // Ref để kiểm tra component còn mounted không, tránh lỗi update state trên unmounted component
     const isMountedRef = useRef(true);
+
     useEffect(() => {
         isMountedRef.current = true;
         return () => { isMountedRef.current = false; };
     }, []);
 
-    // --- API Calls ---
     const fetchRequestDetail = useCallback(async () => {
         if (!isMountedRef.current) return;
         if (!requestId) {
@@ -136,7 +128,7 @@ const AcademicRequestDetailScreen = () => {
 
     const performStatusUpdateAPI = useCallback(async (actionPath, bodyData = null, successMessage, newStatusForUI) => {
         if (!isMountedRef.current || !requestDetail?._id) {
-            if (requestDetail?._id) Alert.alert("Lỗi", "ID yêu cầu không hợp lệ."); // Chỉ alert nếu có requestDetail
+            if (requestDetail?._id) Alert.alert("Lỗi", "ID yêu cầu không hợp lệ.");
             return;
         }
         setIsActionLoading(true);
@@ -152,28 +144,26 @@ const AcademicRequestDetailScreen = () => {
                 },
                 body: bodyData ? JSON.stringify(bodyData) : undefined
             });
-            const result = await response.json(); // Giả sử API luôn trả về JSON
+            const result = await response.json();
             if (!isMountedRef.current) return;
 
             if (response.ok && result.success) {
                 Alert.alert("Thành công", successMessage);
-                // Cập nhật UI ngay lập tức, có thể bao gồm cả các trường khác từ result.data
                 setRequestDetail(prev => ({ ...prev, ...(result.data || {}), status: newStatusForUI }));
             } else {
                 throw new Error(result.message || "Thao tác thất bại.");
             }
-        } catch (err) { // Đổi tên biến lỗi để không trùng với error state
+        } catch (err) {
             Alert.alert("Lỗi", err.message);
         } finally {
             if (isMountedRef.current) setIsActionLoading(false);
         }
-    }, [requestDetail]); // Thêm requestDetail vào dependency array
+    }, [requestDetail]);
 
 
-    // --- Effects ---
     useEffect(() => {
         fetchRequestDetail();
-    }, [fetchRequestDetail]); // Gọi khi component mount hoặc requestId thay đổi
+    }, [fetchRequestDetail]);
 
     useEffect(() => {
         if (requestDetail) {
@@ -181,7 +171,6 @@ const AcademicRequestDetailScreen = () => {
         }
     }, [requestDetail, navigation]);
 
-    // --- Action Handlers ---
     const handleCancelRequest = useCallback(() => {
         Alert.alert(
             "Xác nhận hủy",
@@ -192,52 +181,7 @@ const AcademicRequestDetailScreen = () => {
             ]
         );
     }, [performStatusUpdateAPI]);
-
-    const handleApproveDemo = useCallback(() => {
-        Alert.alert(
-            "Duyệt Yêu Cầu (Demo)",
-            "Bạn có muốn giả lập duyệt yêu cầu này?",
-            [
-                { text: "Không", style: "cancel" },
-                { text: "Duyệt", onPress: () => performStatusUpdateAPI('approve', { adminNotes: 'Đã duyệt (Demo)' }, 'Yêu cầu đã được duyệt (Demo).', 'Approved') }
-            ]
-        );
-    }, [performStatusUpdateAPI]);
-
-    const handleRejectDemo = useCallback(() => {
-        const confirmReject = (reason) => {
-            if (!reason || String(reason).trim() === "") {
-                Alert.alert("Lỗi", "Vui lòng cung cấp lý do từ chối.");
-                return;
-            }
-            performStatusUpdateAPI('reject', { adminNotes: String(reason).trim() }, 'Yêu cầu đã bị từ chối (Demo).', 'Rejected');
-        };
-
-        if (Platform.OS === 'ios') {
-            Alert.prompt(
-                "Lý do từ chối (Demo)",
-                "Vui lòng nhập lý do:",
-                [
-                    { text: "Hủy", style: "cancel" },
-                    { text: "Từ chối", onPress: confirmReject, style: "destructive" }
-                ],
-                'plain-text',
-                '' // Giá trị mặc định của input
-            );
-        } else { // Android không có Alert.prompt
-            // Có thể dùng một Modal tùy chỉnh để nhập text hoặc đơn giản là một lý do mặc định
-            Alert.alert(
-                "Từ chối Yêu Cầu (Demo)",
-                "Bạn có muốn từ chối yêu cầu này với lý do 'Demo (Android)'?",
-                [
-                    { text: "Không", style: "cancel" },
-                    { text: "Từ chối", onPress: () => confirmReject("Lý do từ chối (Demo Android)."), style: "destructive" }
-                ]
-            );
-        }
-    }, [performStatusUpdateAPI]);
-
-
+    
     // --- Render Logic ---
     if (loading) {
         return (
@@ -260,11 +204,9 @@ const AcademicRequestDetailScreen = () => {
         );
     }
 
-    // Destructure sau khi đã chắc chắn requestDetail có dữ liệu
     const { userId: user, requestType, requestTitle, requestDate, studentNotes, status, adminNotes, receivingCampusId, requestCode, createdAt } = requestDetail;
     const statusInfo = getAcademicStatusInfo(status);
 
-    // --- Render Sections ---
     const renderRequestInfo = () => (
         <View style={styles.card}>
             <Text style={styles.title}>Mã Yêu Cầu: {requestCode || 'N/A'}</Text>
@@ -283,7 +225,7 @@ const AcademicRequestDetailScreen = () => {
     );
 
     const renderStudentInfo = () => (
-        user ? ( // Kiểm tra user tồn tại trước khi render
+        user ? (
             <View style={styles.card}>
                 <Text style={styles.title}>Thông Tin Sinh Viên</Text>
                 <InfoRowItem iconName="user-graduate" label="Họ tên" value={user.fullName} />
@@ -311,10 +253,10 @@ const AcademicRequestDetailScreen = () => {
         )
     );
 
-    const renderActionButtons = () => (
-        // Chỉ hiển thị nút Hủy và các nút Demo khi trạng thái là 'Pending'
-        status === 'Pending' && (
-            <>
+    const renderActionButtons = () => {
+        // Chỉ hiển thị nút Hủy khi trạng thái là 'Pending'
+        if (String(status).toLowerCase() === 'pending') {
+            return (
                 <ActionButton
                     onPress={handleCancelRequest}
                     text="Hủy Yêu Cầu"
@@ -323,35 +265,17 @@ const AcademicRequestDetailScreen = () => {
                     isLoading={isActionLoading}
                     disabled={isActionLoading}
                 />
-                <View style={styles.adminActionContainer}>
-                    <Text style={styles.adminActionTitle}>Hành động Giả Lập (Demo)</Text>
-                    <ActionButton
-                        onPress={handleApproveDemo}
-                        text="Giả Lập Duyệt"
-                        icon="check-circle"
-                        buttonStyle={styles.approveButton}
-                        isLoading={isActionLoading}
-                        disabled={isActionLoading}
-                    />
-                    <ActionButton
-                        onPress={handleRejectDemo}
-                        text="Giả Lập Từ Chối"
-                        icon="times-circle"
-                        buttonStyle={styles.rejectButton}
-                        isLoading={isActionLoading}
-                        disabled={isActionLoading}
-                    />
-                </View>
-            </>
-        )
-    );
+            );
+        }
+        return null;
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView
                 contentContainerStyle={styles.scrollContainer}
                 showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled" // Giúp TouchableOpacity trong ScrollView hoạt động tốt hơn
+                keyboardShouldPersistTaps="handled"
             >
                 {renderRequestInfo()}
                 {renderStudentInfo()}
@@ -374,23 +298,19 @@ const styles = StyleSheet.create({
     scrollContainer: { paddingHorizontal: 12, paddingTop: 15, paddingBottom: 20, flexGrow: 1 },
     card: { backgroundColor: '#fff', borderRadius: 10, paddingHorizontal: 18, paddingTop: 18, paddingBottom: 8, marginBottom: 16, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.08, shadowRadius: 3, elevation: 2, },
     title: { fontSize: 17, fontWeight: 'bold', color: '#002366', marginBottom: 16, borderBottomWidth: 1, borderBottomColor: '#e9ecef', paddingBottom: 10, },
-    infoRowContainer: { flexDirection: 'row', marginBottom: 12, alignItems: 'flex-start' }, // alignItems: 'flex-start' cho text dài
-    infoRowIcon: { marginRight: 10, width: 18, textAlign: 'center', color: '#0056b3', marginTop: 2 }, // marginTop nhỏ để icon thẳng hàng với dòng đầu text
+    infoRowContainer: { flexDirection: 'row', marginBottom: 12, alignItems: 'flex-start' },
+    infoRowIcon: { marginRight: 10, width: 18, textAlign: 'center', color: '#0056b3', marginTop: 2 },
     infoRowLabel: { fontSize: 14, color: '#6c757d', fontWeight: '500', minWidth: 100, marginRight: 5 },
     infoRowValue: { fontSize: 14, color: '#212529', flex: 1, lineHeight: 20, },
     valueNotUpdated: { fontStyle: 'italic', color: '#6c757d' },
     linkValue: { color: '#007bff', textDecorationLine: 'underline' },
-    statusRowAligned: { alignItems: 'center' }, // Giữ lại center cho dòng trạng thái
+    statusRowAligned: { alignItems: 'center' },
     statusDisplayBadge: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15, alignSelf: 'flex-start' },
     statusDisplayText: { fontWeight: 'bold', fontSize: 13, },
     actionButton: { flexDirection: 'row', paddingVertical: 13, paddingHorizontal: 20, borderRadius: 8, alignItems: 'center', justifyContent: 'center', marginTop: 10, marginHorizontal: 5, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 2, elevation: 2, },
-    disabledButton: { backgroundColor: '#ced4da' }, // Style cho nút bị vô hiệu hóa
-    cancelButton: { backgroundColor: '#6c757d' },
-    approveButton: { backgroundColor: '#28a745', marginBottom: 10, },
-    rejectButton: { backgroundColor: '#dc3545' },
-    actionButtonText: { color: '#fff', fontSize: 15, fontWeight: '600', marginLeft: 8 }, // Giảm marginLeft nếu không có icon hoặc icon nhỏ
-    adminActionContainer: { marginTop: 20, paddingTop: 15, marginHorizontal: 5, borderTopWidth: 1, borderColor: '#e0e0e0', },
-    adminActionTitle: { textAlign: 'center', fontSize: 13, color: '#777', marginBottom: 12, fontStyle: 'italic', fontWeight: '500' },
+    disabledButton: { backgroundColor: '#ced4da' },
+    cancelButton: { backgroundColor: '#dc3545' },
+    actionButtonText: { color: '#fff', fontSize: 15, fontWeight: '600', marginLeft: 8 },
     notesContentText: { fontSize: 15, lineHeight: 22, color: '#333', paddingVertical: 5 }
 });
 

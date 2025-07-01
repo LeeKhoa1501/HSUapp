@@ -8,7 +8,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { API_BASE_URL } from '@env';
 
-const BASE_URL = API_BASE_URL; // <<< ANH NHỚ THAY IP VÀ PORT ĐÚNG >>>
+const BASE_URL = API_BASE_URL; // <<<  IP VÀ PORT ĐÚNG >>>
 
 const INTERNSHIP_TYPES = [
     { label: "Thực tập Tốt nghiệp", value: "tot_nghiep" },
@@ -100,10 +100,10 @@ const InternshipFormScreen = () => {
 
     const currentYear = new Date().getFullYear();
     const SEMESTER_OPTIONS = [
-        { label: `Học kỳ 1 (${currentYear}-${currentYear + 1})`, value: `HK1-${currentYear}-${currentYear+1}`, realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}1`, academicYear: `${currentYear}-${currentYear + 1}` },
-        { label: `Học kỳ 2 (${currentYear}-${currentYear + 1})`, value: `HK2-${currentYear}-${currentYear+1}`, realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}2`, academicYear: `${currentYear}-${currentYear + 1}` },
-        { label: `Học kỳ Hè (${currentYear}-${currentYear + 1})`, value: `HKH-${currentYear}-${currentYear+1}`, realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}3`, academicYear: `${currentYear}-${currentYear + 1}` },
-        { label: `Học kỳ 1 (${currentYear + 1}-${currentYear + 2})`, value: `HK1-${currentYear+1}-${currentYear+2}`, realSemesterCode: `${String(currentYear+1).slice(-2)}${String(currentYear+2).slice(-2)}1`, academicYear: `${currentYear + 1}-${currentYear + 2}` },
+        { label: `Học kỳ 1 (${currentYear}-${currentYear + 1})`, value: 'HK1', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}1`, academicYear: `${currentYear}-${currentYear + 1}` },
+        { label: `Học kỳ 2 (${currentYear}-${currentYear + 1})`, value: 'HK2', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}2`, academicYear: `${currentYear}-${currentYear + 1}` },
+        { label: `Học kỳ Tết (${currentYear}-${currentYear + 1})`, value: 'HK_TET', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}4`, academicYear: `${currentYear}-${currentYear + 1}` },
+        { label: `Học kỳ Hè (${currentYear}-${currentYear + 1})`, value: 'HKH', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}3`, academicYear: `${currentYear}-${currentYear + 1}` },
     ];
 
     const loadInitialData = useCallback(async () => {
