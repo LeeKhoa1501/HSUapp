@@ -1,5 +1,5 @@
 // HSUMobileApp/screens/InternshipFormScreen.js
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react'; // <<< THAY ĐỔI: thêm useMemo
 import {View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet,Platform, Alert, ActivityIndicator, Modal, KeyboardAvoidingView} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,7 +8,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { API_BASE_URL } from '@env';
 
-const BASE_URL = API_BASE_URL; // <<<  IP VÀ PORT ĐÚNG >>>
+const BASE_URL = API_BASE_URL;
 
 const INTERNSHIP_TYPES = [
     { label: "Thực tập Tốt nghiệp", value: "tot_nghiep" },
@@ -18,6 +18,8 @@ const INTERNSHIP_TYPES = [
     { label: "Khác (Ghi rõ)", value: "other" },
 ];
 
+// LabeledInput và ModalPicker component giữ nguyên, không cần thay đổi.
+// ... (code LabeledInput và ModalPicker ở đây)
 const LabeledInput = React.memo(({ label, value, onChangeText, placeholder, keyboardType = 'default', editable = true, multiline = false, numberOfLines = 1, required = false }) => (
   <View style={styles.inputGroup}>
     <Text style={styles.label}>{label}{required && <Text style={styles.requiredStar}> *</Text>}</Text>
@@ -54,7 +56,7 @@ const ModalPicker = React.memo(({ label, options = [], selectedValue, onValueCha
       <Text style={styles.label}>{label}{required && <Text style={styles.requiredStar}> *</Text>}</Text>
       <TouchableOpacity style={styles.pickerTrigger} onPress={handleOpen} disabled={isLoading}>
         {isLoading ? (<ActivityIndicator size="small" color="#002366" />)
-                   : (<Text style={(selectedValue != null && selectedValue !== '') ? styles.pickerTriggerText : styles.pickerPlaceholder} numberOfLines={1}>{displayLabel}</Text>)}
+                    : (<Text style={(selectedValue != null && selectedValue !== '') ? styles.pickerTriggerText : styles.pickerPlaceholder} numberOfLines={1}>{displayLabel}</Text>)}
         {!isLoading && <FontAwesome5 name="chevron-down" size={14} color="#6c757d" style={styles.pickerIcon} />}
       </TouchableOpacity>
       <Modal transparent={true} visible={modalVisible} animationType="fade" onRequestClose={handleCancel}>
@@ -78,12 +80,24 @@ const ModalPicker = React.memo(({ label, options = [], selectedValue, onValueCha
   );
 });
 
+
 const InternshipFormScreen = () => {
     const navigation = useNavigation();
     const isMountedRef = useRef(true);
 
-    const [studentInfo, setStudentInfo] = useState({ studentClass: 'Đang tải...', academicYear: new Date().getFullYear().toString() });
-    const [semesterCode, setSemesterCode] = useState(null); // Đây là value từ Picker (ví dụ: 'HK1-2024-2025')
+    const [studentInfo, setStudentInfo] = useState({ studentClass: 'Đang tải...' });
+    
+    // <<< THÊM MỚI: State cho năm học và picker năm học
+    const currentYearForSetup = new Date().getFullYear();
+    const [selectedYear, setSelectedYear] = useState(`${currentYearForSetup}-${currentYearForSetup + 1}`);
+    const yearOptions = useMemo(() => [
+        { label: `Năm học ${currentYearForSetup + 1}-${currentYearForSetup + 2}`, value: `${currentYearForSetup + 1}-${currentYearForSetup + 2}` },
+        { label: `Năm học ${currentYearForSetup}-${currentYearForSetup + 1}`, value: `${currentYearForSetup}-${currentYearForSetup + 1}` },
+        { label: `Năm học ${currentYearForSetup - 1}-${currentYearForSetup}`, value: `${currentYearForSetup - 1}-${currentYearForSetup}` },
+    ], [currentYearForSetup]);
+
+
+    const [semesterCode, setSemesterCode] = useState(null);
     const [internshipType, setInternshipType] = useState(null);
     const [companiesOptions, setCompaniesOptions] = useState([]);
     const [isLoadingCompanies, setIsLoadingCompanies] = useState(true);
@@ -98,14 +112,27 @@ const InternshipFormScreen = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [initialDataError, setInitialDataError] = useState(null);
 
-    const currentYear = new Date().getFullYear();
-    const SEMESTER_OPTIONS = [
-        { label: `Học kỳ 1 (${currentYear}-${currentYear + 1})`, value: 'HK1', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}1`, academicYear: `${currentYear}-${currentYear + 1}` },
-        { label: `Học kỳ 2 (${currentYear}-${currentYear + 1})`, value: 'HK2', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}2`, academicYear: `${currentYear}-${currentYear + 1}` },
-        { label: `Học kỳ Tết (${currentYear}-${currentYear + 1})`, value: 'HK_TET', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}4`, academicYear: `${currentYear}-${currentYear + 1}` },
-        { label: `Học kỳ Hè (${currentYear}-${currentYear + 1})`, value: 'HKH', realSemesterCode: `${String(currentYear).slice(-2)}${String(currentYear+1).slice(-2)}3`, academicYear: `${currentYear}-${currentYear + 1}` },
-    ];
+    // <<< THAY ĐỔI: Chuyển SEMESTER_OPTIONS thành biến động, phụ thuộc vào `selectedYear`
+    const semesterOptions = useMemo(() => {
+        if (!selectedYear) return [];
+        const startYear = parseInt(selectedYear.split('-')[0], 10);
+        const endYear = startYear + 1;
+        
+        return [
+            { label: `Học kỳ 1 (${startYear}-${endYear})`, value: 'HK1', realSemesterCode: `${String(startYear).slice(-2)}${String(endYear).slice(-2)}1` },
+            { label: `Học kỳ 2 (${startYear}-${endYear})`, value: 'HK2', realSemesterCode: `${String(startYear).slice(-2)}${String(endYear).slice(-2)}2` },
+            { label: `Học kỳ Tết (${startYear}-${endYear})`, value: 'HK_TET', realSemesterCode: `${String(startYear).slice(-2)}${String(endYear).slice(-2)}4` },
+            { label: `Học kỳ Hè (${startYear}-${endYear})`, value: 'HKH', realSemesterCode: `${String(startYear).slice(-2)}${String(endYear).slice(-2)}3` },
+        ];
+    }, [selectedYear]);
 
+    // <<< THÊM MỚI: Tự động reset học kỳ khi năm học thay đổi
+    useEffect(() => {
+        setSemesterCode(null); // Reset lựa chọn học kỳ
+    }, [selectedYear]);
+
+
+    // ... (code hàm loadInitialData, handleCompanySelection giữ nguyên)
     const loadInitialData = useCallback(async () => {
         if (!isMountedRef.current) return;
         setIsLoadingLocations(true); setIsLoadingCompanies(true); setInitialDataError(null);
@@ -139,6 +166,8 @@ const InternshipFormScreen = () => {
 
     const handleSubmit = useCallback(async () => {
         if (!studentInfo.studentClass || studentInfo.studentClass === 'N/A' || studentInfo.studentClass === 'Đang tải...') { Alert.alert('Thông báo', 'Thông tin Lớp/Ngành của bạn chưa sẵn sàng.'); return; }
+        // <<< THÊM MỚI: Kiểm tra năm học
+        if (!selectedYear) { Alert.alert('Thông báo', 'Vui lòng chọn Năm học.'); return; }
         if (!semesterCode) { Alert.alert('Thông báo', 'Vui lòng chọn Học kỳ đăng ký.'); return; }
         if (!internshipType) { Alert.alert('Thông báo', 'Vui lòng chọn Loại hình thực tập.'); return; }
         if (!selectedCompanyId && !companyNameOther.trim()) { Alert.alert('Thông báo', 'Vui lòng chọn Doanh nghiệp hoặc nhập tên Doanh nghiệp mới.'); return; }
@@ -149,21 +178,21 @@ const InternshipFormScreen = () => {
         let token;
         try {
             token = await AsyncStorage.getItem('userToken'); if (!token) throw new Error("Phiên làm việc hết hạn.");
-
-            const selectedSemesterObj = SEMESTER_OPTIONS.find(s => s.value === semesterCode);
-            const academicYearToSend = selectedSemesterObj ? selectedSemesterObj.academicYear : studentInfo.academicYear; // academicYear từ selection
-            // Lấy mã học kỳ thật sự (ví dụ: "2411") để gửi lên backend
+            
+            // <<< THAY ĐỔI: Lấy học kỳ từ danh sách động `semesterOptions`
+            const selectedSemesterObj = semesterOptions.find(s => s.value === semesterCode);
+            const academicYearToSend = selectedYear; // <<< THAY ĐỔI: Gửi năm học đã chọn
             const semesterCodeForBackend = selectedSemesterObj ? selectedSemesterObj.realSemesterCode : null;
 
             if (!academicYearToSend || !semesterCodeForBackend) {
-                 Alert.alert('Lỗi dữ liệu', 'Không xác định được Học kỳ hoặc Năm học. Vui lòng chọn lại học kỳ.');
+                 Alert.alert('Lỗi dữ liệu', 'Không xác định được Học kỳ hoặc Năm học. Vui lòng chọn lại.');
                  if (isMountedRef.current) setIsSubmitting(false);
                  return;
             }
 
             const dataToSend = {
                 studentClass: studentInfo.studentClass,
-                semester: semesterCodeForBackend, // <<< GỬI `semester` với giá trị là mã học kỳ thật
+                semester: semesterCodeForBackend, 
                 academicYear: academicYearToSend,
                 internshipType,
                 companyId: selectedCompanyId || undefined,
@@ -172,7 +201,6 @@ const InternshipFormScreen = () => {
                 companyContactOther: selectedCompanyId ? undefined : companyContactOther.trim(),
                 receivingCampusId: selectedReceivingCampusId,
                 notes: notes.trim(),
-                // startDate, endDate nếu có
             };
             console.log("[InternshipForm] Dữ liệu gửi đi:", JSON.stringify(dataToSend, null, 2));
 
@@ -184,16 +212,16 @@ const InternshipFormScreen = () => {
                 navigation.goBack();
             } else { throw new Error(result.message || `Gửi yêu cầu thất bại (Code: ${response.status})`); }
         } catch (err) {
-            console.error("[InternshipForm] Lỗi khi gửi đơn:", err.message); // Log lỗi đầy đủ
+            console.error("[InternshipForm] Lỗi khi gửi đơn:", err.message);
             if(isMountedRef.current) Alert.alert("Lỗi gửi đơn", err.message || "Không thể gửi yêu cầu. Vui lòng thử lại sau.");
         } finally {
             if(isMountedRef.current) setIsSubmitting(false);
         }
-    }, [navigation, studentInfo, semesterCode, internshipType, selectedCompanyId, companyNameOther, companyAddressOther, companyContactOther, selectedReceivingCampusId, notes, SEMESTER_OPTIONS]);
+    }, [navigation, studentInfo, selectedYear, semesterCode, internshipType, selectedCompanyId, companyNameOther, companyAddressOther, companyContactOther, selectedReceivingCampusId, notes, semesterOptions]);
 
-
+    // ... (code render loading, error giữ nguyên)
     if (isLoadingCompanies || isLoadingLocations && !initialDataError) {
-        return <SafeAreaView style={styles.safeArea}><View style={styles.centeredMessage}><ActivityIndicator size="large" color="#002366" /><Text style={styles.loadingText}>Đang tải dữ liệu form...</Text></View></SafeAreaView>;
+      return <SafeAreaView style={styles.safeArea}><View style={styles.centeredMessage}><ActivityIndicator size="large" color="#002366" /><Text style={styles.loadingText}>Đang tải dữ liệu form...</Text></View></SafeAreaView>;
     }
     if (initialDataError) {
         return ( <SafeAreaView style={styles.safeArea}><View style={styles.centeredMessage}><FontAwesome5 name="exclamation-triangle" size={40} color="#dc3545" style={{marginBottom:15}}/><Text style={styles.errorText}>{initialDataError}</Text><TouchableOpacity onPress={loadInitialData} style={styles.retryButton}><Text style={styles.retryButtonText}>Thử tải lại</Text></TouchableOpacity></View></SafeAreaView> );
@@ -205,14 +233,37 @@ const InternshipFormScreen = () => {
                 <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
                     <Text style={styles.screenTitle}>Tạo Đơn Xin Thực Tập</Text>
                     <LabeledInput label="Lớp/Ngành (Hệ thống)" value={studentInfo.studentClass || ''} editable={false} />
-                    <ModalPicker label="Học kỳ đăng ký" options={SEMESTER_OPTIONS} selectedValue={semesterCode} onValueChange={setSemesterCode} placeholder="-- Chọn học kỳ --" required />
+
+                    {/* <<< THÊM MỚI: Picker chọn năm học */}
+                    <ModalPicker
+                        label="Năm học"
+                        options={yearOptions}
+                        selectedValue={selectedYear}
+                        onValueChange={setSelectedYear}
+                        placeholder="-- Chọn năm học --"
+                        required
+                    />
+
+                    {/* <<< THAY ĐỔI: options của học kỳ giờ là biến động */}
+                    <ModalPicker
+                        label="Học kỳ đăng ký"
+                        options={semesterOptions}
+                        selectedValue={semesterCode}
+                        onValueChange={setSemesterCode}
+                        placeholder="-- Chọn học kỳ --"
+                        required
+                    />
+                    
                     <ModalPicker label="Loại hình thực tập" options={INTERNSHIP_TYPES} selectedValue={internshipType} onValueChange={setInternshipType} placeholder="-- Chọn loại hình --" required />
+                    
+                    {/* ... (phần còn lại của form giữ nguyên) ... */}
                     <View style={styles.inputGroup}><Text style={styles.label}>Doanh nghiệp thực tập <Text style={styles.requiredStar}>*</Text></Text><ModalPicker label="Chọn Doanh Nghiệp" options={companiesOptions} selectedValue={selectedCompanyId} onValueChange={handleCompanySelection} placeholder="-- Chọn từ danh sách công ty --" isLoading={isLoadingCompanies} /></View>
                     <LabeledInput label="Hoặc nhập Tên Doanh nghiệp mới" value={companyNameOther} onChangeText={setCompanyNameOther} placeholder="(Nếu không có trong danh sách trên)" editable={!selectedCompanyId} />
                     <LabeledInput label="Địa chỉ công ty (nếu nhập mới)" value={companyAddressOther} onChangeText={setCompanyAddressOther} placeholder="Số nhà, đường, phường/xã..." editable={!selectedCompanyId} />
                     <LabeledInput label="Thông tin liên hệ công ty (nếu nhập mới)" value={companyContactOther} onChangeText={setCompanyContactOther} placeholder="Người liên hệ, SĐT, Email..." editable={!selectedCompanyId} />
                     <ModalPicker label="Nơi nhận đơn (Phòng ban Trường)" options={locationsOptions} selectedValue={selectedReceivingCampusId} onValueChange={setSelectedReceivingCampusId} placeholder="-- Chọn nơi nhận đơn --" isLoading={isLoadingLocations} required />
                     <LabeledInput label="Ghi chú thêm" value={notes} onChangeText={setNotes} placeholder="Ví dụ: Xin thư giới thiệu..." multiline numberOfLines={4} />
+
                     <TouchableOpacity style={[styles.submitButton, (isSubmitting || isLoadingCompanies || isLoadingLocations) && styles.submitButtonDisabled]} onPress={handleSubmit} disabled={isSubmitting || isLoadingCompanies || isLoadingLocations}>
                         {isSubmitting ? (<ActivityIndicator color="#fff" size="small" />) : (<Text style={styles.submitButtonText}>Gửi Yêu Cầu</Text>)}
                     </TouchableOpacity>
@@ -222,6 +273,7 @@ const InternshipFormScreen = () => {
         </SafeAreaView>
     );
 };
+// ... (code styles giữ nguyên)
 const styles = StyleSheet.create({
     safeArea: { flex: 1, backgroundColor: '#f0f2f5' },
     keyboardAvoiding: { flex: 1 },
@@ -230,6 +282,7 @@ const styles = StyleSheet.create({
     screenTitle: { fontSize: 20, fontWeight: 'bold', color: '#003366', textAlign: 'center', marginBottom: 25 },
     inputGroup:{marginBottom:20},
     label:{fontSize:15,fontWeight:'600',color:'#495057',marginBottom:8},
+    requiredStar: {color: 'red'},
     input:{backgroundColor:'#fff',borderWidth:1,borderColor:'#dee2e6',borderRadius:8,paddingHorizontal:14,paddingVertical:Platform.OS==='ios'?12:10,fontSize:15,color:'#212529', minHeight: 48},
     disabledInput:{backgroundColor:'#e9ecef',color:'#6c757d'},
     multilineInput:{paddingTop:12, textAlignVertical: 'top'},
@@ -246,18 +299,15 @@ const styles = StyleSheet.create({
     modalPicker:{width:'100%',backgroundColor:Platform.OS==='ios'?'#f8f9fa':undefined},
     pickerItemTextIOS:{color:'#000',fontSize:17},
     pickerPlaceholderItem:{ color: '#adb5bd'},
+    noOptionsContainer: {padding: 20, alignItems: 'center'},
+    noOptionsText: {fontSize: 16, color: '#6c757d'},
     submitButton:{backgroundColor:'#002366',paddingVertical:15,borderRadius:10,alignItems:'center',marginTop:15},
     submitButtonDisabled:{backgroundColor:'#adb5bd'},
     submitButtonText:{color:'#fff',fontSize:16,fontWeight:'bold'},
     centeredMessage: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
+    loadingText: {marginTop: 10, fontSize: 16, color: '#495057'},
     errorText: { color: 'red', fontSize: 16, textAlign: 'center', marginBottom: 10 },
-    submitErrorText: { color: 'red', textAlign: 'center', marginBottom: 15, marginTop: -5 },
     retryButton: { marginTop: 10, paddingHorizontal: 15, paddingVertical: 8, backgroundColor: '#007bff', borderRadius: 5 },
     retryButtonText: { color: '#fff' },
-    searchInput: { // Style cho ô tìm kiếm doanh nghiệp (nếu cần)
-        backgroundColor: '#fff', borderWidth: 1, borderColor: '#dee2e6', borderRadius: 8,
-        paddingHorizontal: 14, paddingVertical: Platform.OS === 'ios' ? 10 : 8, fontSize: 15,
-        marginBottom: 10, // Khoảng cách với Picker chọn từ danh sách
-    }
 });
 export default InternshipFormScreen;
